@@ -18,7 +18,7 @@ export function createLoginForm() {
     </h1>
     <form id="login-form" style="display: flex; flex-direction: column; align-items: center; width: 350px;">
       <div style="margin-bottom: 25px; width: 100%;">
-        <label for="email" style="display: block; margin-bottom: 10px; font-weight: bold; color: white; font-family: Arial; font-size: 18px;">E-mail</label>
+        <label for="email" style="display: block; margin-bottom: 10px; font-weight: bold; color: white; font-family: Arial; font-size: 18px;">Email Address</label>
         <div style="position: relative; width: 100%;">
           <input type="email" id="email" name="email" required placeholder="Enter your email address"
             style="width: 100%; padding: 15px; padding-right: 50px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 16px; color: #5f6368;">
