@@ -27,7 +27,7 @@ export function createLoginForm() {
           </span>
         </div>
       </div>
-      <div style="margin-bottom: 25px; width: 100%;">
+      <div style="margin-bottom: 30px; width: 100%;">
         <label for="password" style="display: block; margin-bottom: 10px; font-weight: bold; color: white; font-family: Arial; font-size: 18px;">Password</label>
         <div style="position: relative; width: 100%;">
           <input type="password" id="password" name="password" required placeholder="Enter your password"
@@ -40,7 +40,7 @@ export function createLoginForm() {
         </div>
       </div>
       <div>
-        <button type="submit" style="padding: 15px 25px; border: none; border-radius: 8px; background-color: #6200EA; color: white; width: 100%; font-size: 18px; cursor: pointer;">
+        <button type="submit" style="padding: 15px 25px;font-weight: bold; border: none; border-radius: 8px; background-color: #6200EA; color: white; width: 100%; font-size: 18px; cursor: pointer;">
           Login
         </button>
       </div>
