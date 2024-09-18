@@ -47,6 +47,9 @@ export function createLoginForm() {
       <p id="error-message" style="color: #ff0000; font-family: Arial; font-size: 16px; margin-top: 20px; display: none;">
         Please fill in all fields.
       </p>
+      <p style="margin-top: 20px; color: white; font-size: 16px; font-family: Arial;">
+        Not already a user? <a id="register-link" style="color: #6200EA; text-decoration: none; cursor: pointer;">Register here</a>
+      </p>
     </form>
   `;
 
