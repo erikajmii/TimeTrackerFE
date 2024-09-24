@@ -51,7 +51,7 @@ export function createRegistrationForm() {
         <div style="position: relative; width: 100%;">
           <input type="password" id="confirmPassword" placeholder="Re-enter your password"
             style="width: 100%; padding: 15px; padding-right: 50px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 16px; color: #5f6368;">
-          <span id="toggle-password" style="position: absolute; right: 12px; top: 55%; transform: translateY(-50%); color: #5f6368; font-size: 24px; cursor: pointer;">
+          <span id="toggle-confirm-password" style="position: absolute; right: 12px; top: 55%; transform: translateY(-50%); color: #5f6368; font-size: 24px; cursor: pointer;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 5.5C7.58 5.5 4.16 8.09 2.5 12C4.16 15.91 7.58 18.5 12 18.5C16.42 18.5 19.84 15.91 21.5 12C19.84 8.09 16.42 5.5 12 5.5ZM12 16C9.24 16 7 13.76 7 11C7 8.24 9.24 6 12 6C14.76 6 17 8.24 17 11C17 13.76 14.76 16 12 16ZM12 8C10.34 8 9 9.34 9 11C9 12.66 10.34 14 12 14C13.66 14 15 12.66 15 11C15 9.34 13.66 8 12 8Z" fill="#5f6368"/>
             </svg>
@@ -71,6 +71,25 @@ export function createRegistrationForm() {
       Already a user? <a id="login-link" style="color: #6200EA; text-decoration: none; cursor: pointer;">Login here</a>
     </p>
   `;
+
+  // Add event listeners for toggling password visibility
+  const togglePassword = formContainer.querySelector('#toggle-password');
+  const passwordInput = formContainer.querySelector('#password');
+  togglePassword.addEventListener('mouseover', () => {
+    passwordInput.type = 'text';
+  });
+  togglePassword.addEventListener('mouseout', () => {
+    passwordInput.type = 'password';
+  });
+
+  const toggleConfirmPassword = formContainer.querySelector('#toggle-confirm-password');
+  const confirmPasswordInput = formContainer.querySelector('#confirmPassword');
+  toggleConfirmPassword.addEventListener('mouseover', () => {
+    confirmPasswordInput.type = 'text';
+  });
+  toggleConfirmPassword.addEventListener('mouseout', () => {
+    confirmPasswordInput.type = 'password';
+  });
 
   return formContainer;
 }
