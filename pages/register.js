@@ -1,9 +1,13 @@
+//erika mii
+
+//this function will create the registration form so that when a new user wants to create an account, this is the form they will
+//see and fill out to create an account with a username, email, and password
 export function createRegistrationForm() {
   // Create the container
   const formContainer = document.createElement('div');
 
-  // Set the overall container styles
-  formContainer.style.backgroundColor = "black"; // Black background for the full screen
+  //container styles
+  formContainer.style.backgroundColor = "black";
   formContainer.style.display = "flex";
   formContainer.style.flexDirection = "column";
   formContainer.style.justifyContent = "center";
