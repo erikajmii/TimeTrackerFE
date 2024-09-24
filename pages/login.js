@@ -75,13 +75,17 @@ export function createLoginForm() {
     });
 
   // Handle password visibility toggle
-  formContainer
-    .querySelector("#toggle-password")
-    .addEventListener("click", function () {
-      const passwordInput = formContainer.querySelector("#password");
-      const isPasswordVisible = passwordInput.type === "text";
-      passwordInput.type = isPasswordVisible ? "password" : "text";
-    });
+  const togglePassword = formContainer.querySelector("#toggle-password");
+  const passwordInput = formContainer.querySelector("#password");
+
+  togglePassword.addEventListener("mouseover", function () {
+    passwordInput.type = "text";
+  });
+
+  togglePassword.addEventListener("mouseout", function () {
+    passwordInput.type = "password";
+  });
+
 
   // Append the form container to the body
   document.body.style.margin = "0";
