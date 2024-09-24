@@ -1,5 +1,127 @@
-/* login.css */
+html,
+body {
+  margin: 0;
+  /* Remove default margin */
+  padding: 0;
+  /* Remove default padding */
+  height: 100%;
+  /* Allow body to take full height */
+  width: 100%;
+  /* Allow body to take full width */
+}
 
-.h2 {
-  color: black;
+/* Container styles */
+#form-container {
+  background-color: black;
+  /* Black background for the full screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Header styles */
+h1 {
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+/* Form styles */
+#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+}
+
+/* Input field styles */
+.input-container {
+  margin-bottom: 25px;
+  width: 100%;
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  /* Ensure the container is positioned */
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: white;
+  font-family: Arial;
+  font-size: 18px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  padding-right: 50px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #5f6368;
+}
+
+/* Toggle password visibility styles */
+#toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 53%;
+  color: #5f6368;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Button styles */
+#login-button {
+  padding: 15px 150px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  background-color: #6200EA;
+  color: white;
+  width: 100%;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#login-button:hover {
+  background-color: #4104ff;
+}
+
+/* Error message styles */
+#error-message {
+  color: #ff0000;
+  font-family: Arial;
+  font-size: 16px;
+  margin-top: 20px;
+  display: none;
+}
+
+/* Create password link styles */
+p {
+  margin-top: 20px;
+  color: white;
+  font-size: 16px;
+  font-family: Arial;
+}
+
+a {
+  color: #6200EA;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #4104ff; 
+  text-decoration: underline;
 }
