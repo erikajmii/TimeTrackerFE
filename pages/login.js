@@ -11,16 +11,16 @@ export function createLoginForm() {
   formContainer.style.height = "100vh";
   formContainer.style.width = "100vw";
 
-  // Set inner HTML for the form with email and password fields directly in the formContainer
+  // Set inner HTML for the form with NetID and password fields directly in the formContainer
   formContainer.innerHTML = `
     <h1 style="font-family: Arial, sans-serif; font-size: 30px; color: white; margin-bottom: 30px;">
       Time Tracker
     </h1>
     <form id="login-form" style="display: flex; flex-direction: column; align-items: center; width: 350px;">
       <div style="margin-bottom: 25px; width: 100%;">
-        <label for="email" style="display: block; margin-bottom: 10px; font-weight: bold; color: white; font-family: Arial; font-size: 18px;">Email Address</label>
+        <label for="NetID" style="display: block; margin-bottom: 10px; font-weight: bold; color: white; font-family: Arial; font-size: 18px;">NetID</label>
         <div style="position: relative; width: 100%;">
-          <input type="email" id="email" name="email" required placeholder="Enter your email address"
+          <input type="text" id="NetID" name="NetID" required placeholder="Enter Your NetID"
             style="width: 100%; padding: 15px; padding-right: 50px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 16px; color: #5f6368;">
           <span style="position: absolute; right: 15px; top: 46%; transform: translateY(-50%); color: #5f6368; font-size: 28px;">
             &#x2709;
@@ -48,7 +48,7 @@ export function createLoginForm() {
         Please fill in all fields.
       </p>
       <p style="margin-top: 20px; color: white; font-size: 16px; font-family: Arial;">
-        Not already a user? <a id="register-link" style="color: #6200EA; text-decoration: none; cursor: pointer;">Register here</a>
+        Don't have an account? <a id="register-link" style="color: #6200EA; text-decoration: none; cursor: pointer;">Create Password</a>
       </p>
     </form>
   `;
@@ -58,30 +58,37 @@ export function createLoginForm() {
     .querySelector("#login-form")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      const email = event.target.email.value;
+      const netID = event.target.NetID.value;
       const password = event.target.password.value;
 
       // Validate form fields
-      if (!email || !password) {
+      if (!netID || netID.includes("@") || !password) {
         formContainer.querySelector("#error-message").style.display = "block";
+        formContainer.querySelector("#error-message").textContent = "NetID should not contain an '@' symbol.";
         return;
       }
 
       // Clear error message if all fields are filled
       formContainer.querySelector("#error-message").style.display = "none";
 
-      console.log("Email:", email);
+      console.log("NetID:", netID);
       console.log("Password:", password);
     });
 
   // Handle password visibility toggle
-  formContainer
-    .querySelector("#toggle-password")
-    .addEventListener("click", function () {
-      const passwordInput = formContainer.querySelector("#password");
-      const isPasswordVisible = passwordInput.type === "text";
-      passwordInput.type = isPasswordVisible ? "password" : "text";
-    });
+  const togglePassword = formContainer.querySelector("#toggle-password");
+  const passwordInput = formContainer.querySelector("#password");
+  let isPasswordVisible = false;
+
+  togglePassword.addEventListener("click", function () {
+    if (isPasswordVisible) {
+      passwordInput.type = "password";
+      isPasswordVisible = false;
+    } else {
+      passwordInput.type = "text";
+      isPasswordVisible = true;
+    }
+  });
 
   // Append the form container to the body
   document.body.style.margin = "0";
