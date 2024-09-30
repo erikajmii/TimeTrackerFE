@@ -2,7 +2,7 @@
 
 //imports
 import {createLoginForm} from '../pages/login.js';
-import { createRegistrationForm } from '../pages/register.js';
+import { createPasswordPopup } from '../pages/passwordSet.js';
 
 // Initialize the application
 function initApp() {
@@ -10,16 +10,10 @@ function initApp() {
   // Render the login form initially
   appDiv.appendChild(createLoginForm());
 
-  // Add a click event listener to switch to the registration form
-  appDiv.addEventListener('click', function(event) {
-    if (event.target && event.target.id === 'register-link') {
-      appDiv.innerHTML = ''; // Clear the current content
-      appDiv.appendChild(createRegistrationForm()); // Render the registration form
-    }
-    if (event.target && event.target.id === 'login-link') {
-      appDiv.innerHTML = ''; // Clear the current content
-      appDiv.appendChild(createLoginForm()); // Render the login form
-    }
+  // Add a click event listener to switch to the set password form
+  appDiv.addEventListener('submit', function(event) {
+    appDiv.innerHTML = ''; // Clear the current content
+    appDiv.appendChild(createPasswordPopup()); // Render the set password form
   });
 }
 
