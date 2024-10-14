@@ -1,4 +1,3 @@
-// Function to create homepage with left-side navigation bar
 export function createHomepage() {
   const homepageDiv = document.createElement('div');
   
@@ -26,7 +25,7 @@ export function createHomepage() {
     </ul>
   `;
   
-  // Create content container for "This Week" and "New Entry" form
+  // Create content container for "This Week", "My Groups", and "New Entry" form
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('content-container');
   
@@ -35,9 +34,17 @@ export function createHomepage() {
   thisWeekSection.classList.add('this-week');
   thisWeekSection.innerHTML = `
     <h2>This Week</h2>
-    <p>*This will be where Students are shown time for the current week (3 previous days can be modified) and for the entire project* </p>
+    <p>*This will be where Students are shown time for the current week (3 previous days can be modified) and for the entire project*</p>
   `;
   
+  // "My Groups" section (6 lines below "This Week")
+  const myGroupsSection = document.createElement('section');
+  myGroupsSection.classList.add('my-groups');
+  myGroupsSection.innerHTML = `
+    <h2>My Groups</h2>
+    <p>*This is where group information will be displayed (group members and current group progress).*</p>
+  `;
+
   // "New Entry" form section
   const newEntrySection = document.createElement('section');
   newEntrySection.classList.add('new-entry');
@@ -65,14 +72,16 @@ export function createHomepage() {
     <p id="form-success" style="display:none;color:green;">Entry submitted successfully!</p>
   `;
 
-  // Append "This Week" and "New Entry" sections to content container
+  // Append sections to content container
   contentContainer.appendChild(thisWeekSection);
+  contentContainer.appendChild(myGroupsSection); // Add the "My Groups" section after "This Week"
   contentContainer.appendChild(newEntrySection);
 
   // Append sidebar and content container to the main container
   container.appendChild(sidebar);
   container.appendChild(contentContainer);
   
+  // Append header and main container to the homepage div
   homepageDiv.appendChild(header);
   homepageDiv.appendChild(container);
 
