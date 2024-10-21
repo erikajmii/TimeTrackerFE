@@ -34,15 +34,13 @@ export function createHomepage() {
   thisWeekSection.classList.add('this-week');
   thisWeekSection.innerHTML = `
     <h2>This Week</h2>
-    <p>*This will be where Students are shown time for the current week (3 previous days can be modified) and for the entire project*</p>
   `;
   
   // "My Groups" section (6 lines below "This Week")
   const myGroupsSection = document.createElement('section');
   myGroupsSection.classList.add('my-groups');
   myGroupsSection.innerHTML = `
-    <h2>My Groups</h2>
-    <p>*This is where group information will be displayed (group members and current group progress).*</p>
+    <h2>My Group</h2>
   `;
 
   // "New Entry" form section
@@ -74,7 +72,7 @@ export function createHomepage() {
 
   // Append sections to content container
   contentContainer.appendChild(thisWeekSection);
-  contentContainer.appendChild(myGroupsSection); // Add the "My Groups" section after "This Week"
+  contentContainer.appendChild(myGroupsSection); // Add the "My Group" section after "This Week"
   contentContainer.appendChild(newEntrySection);
 
   // Append sidebar and content container to the main container
