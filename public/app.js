@@ -3,6 +3,7 @@
 import { createLoginForm } from '../pages/login.js';
 import { createPasswordPopup } from '../pages/passwordSet.js';
 import { createHomepage } from '../pages/homepage.js'; // New import for homepage
+import { createTimeLogsPage } from '../pages/timelogs.js'; // Import the time logs page
 
 // Function to load CSS dynamically
 function loadCSS(filename) {
@@ -51,7 +52,6 @@ async function login() {
   }
 }
 
-// Initialize the application
 function initApp() {
   const appDiv = document.getElementById('app');
 
@@ -82,6 +82,9 @@ function initApp() {
         appDiv.appendChild(createHomepage()); // Render homepage content
         console.log("Homepage loaded");
 
+        // Set up navigation for homepage links
+        setupNavigation();
+        
         // Update the URL without reloading the page
         window.location.hash = "#homepage";
       });
@@ -92,6 +95,44 @@ function initApp() {
       errorMessage.style.color = 'red';
       appDiv.appendChild(errorMessage);
     }
+  });
+}
+
+// Function to set up navigation for different pages
+function setupNavigation() {
+  const navItems = document.querySelectorAll('.nav-item');
+  const appDiv = document.getElementById('app');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetPage = e.target.getAttribute('href').substring(1);
+
+      // Update navigation highlighting
+      navItems.forEach(nav => nav.classList.remove('active'));
+      e.target.classList.add('active');
+
+      // Render the corresponding page based on the target
+      switch (targetPage) {
+        case 'homepage':
+          appDiv.innerHTML = '';
+          loadCSS('/css/homepage.css');
+          appDiv.appendChild(createHomepage());
+          break;
+        case 'timelogs':
+          appDiv.innerHTML = '';
+          loadCSS('/css/timeLogs.css'); // Ensure you have a CSS file for the Time Logs page
+          appDiv.appendChild(createTimeLogsPage());
+          console.log("Time Logs page loaded");
+          break;
+        // Add more cases for additional pages (e.g., Peer Review, Profile, etc.)
+        default:
+          console.error("Unknown page:", targetPage);
+      }
+      
+      // Update the URL without reloading the page
+      window.location.hash = `#${targetPage}`;
+    });
   });
 }
 
