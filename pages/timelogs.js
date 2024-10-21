@@ -1,52 +1,75 @@
-// pages/timeLogsPage.js
-
+// timelogs.js
 export function createTimeLogsPage() {
-    const timeLogsDiv = document.createElement('div');
-    
-    // Container setup
-    const container = document.createElement('div');
-    container.classList.add('content-container');
-    
-    // New Entry form for Time Logs
-    const newEntrySection = document.createElement('section');
-    newEntrySection.classList.add('new-entry');
-    newEntrySection.innerHTML = `
-      <h2>New Entry</h2>
-      <form id="timelogs-form">
-        <label for="entry-date">Date:</label>
-        <input type="date" id="entry-date" required>
-  
-        <label for="entry-time">Time Spent (HH:MM):</label>
-        <input type="text" id="entry-time" required pattern="^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$">
-  
-        <label for="account-description">Account of what you did:</label>
-        <textarea id="account-description"></textarea>
-  
-        <label for="problems">Problems encountered:</label>
-        <textarea id="problems"></textarea>
-  
-        <label for="planned">Planned next steps:</label>
-        <textarea id="planned"></textarea>
-  
-        <button type="submit">Submit Entry</button>
-      </form>
-    `;
-  
-    // Entries list section
-    const entriesSection = document.createElement('section');
-    entriesSection.classList.add('entries-list');
-    entriesSection.innerHTML = `
-      <h2>Entries</h2>
-      <p>No entries yet. Add your first entry above.</p>
-    `;
-  
-    // Append sections to the container
-    container.appendChild(newEntrySection);
-    container.appendChild(entriesSection);
-    
-    // Append the container to the time logs div
-    timeLogsDiv.appendChild(container);
-  
-    return timeLogsDiv;
+  const timeLogsDiv = document.createElement('div');
+
+  // Create title for the Time Logs page
+  const title = document.createElement('h1');
+  title.textContent = 'Time Logs';
+  timeLogsDiv.appendChild(title);
+
+  // Create container for tabs
+  const tabsContainer = document.createElement('div');
+  tabsContainer.classList.add('tabs-container');
+
+  // Create list of tabs for different students
+  const tabsList = document.createElement('ul');
+  tabsList.classList.add('tabs-list');
+
+  const students = ['Student 1', 'Student 2', 'Student 3', 'Student 4', 'Student 5'];
+
+  students.forEach((student, index) => {
+    const tab = document.createElement('li');
+    tab.classList.add('tab-item');
+    tab.textContent = student;
+    tab.dataset.student = index + 1; // Add a data attribute for student number
+    tab.addEventListener('click', () => switchTab(index + 1));
+    tabsList.appendChild(tab);
+  });
+
+  tabsContainer.appendChild(tabsList);
+  timeLogsDiv.appendChild(tabsContainer);
+
+  // Create content container for each student's logs
+  const contentContainer = document.createElement('div');
+  contentContainer.classList.add('tab-content-container');
+
+  // Create content for each student and hide it initially
+  students.forEach((student, index) => {
+    const studentContent = document.createElement('div');
+    studentContent.classList.add('student-content');
+    studentContent.id = `student-${index + 1}`;
+    studentContent.style.display = 'none'; 
+
+    const studentTitle = document.createElement('h2');
+    studentTitle.textContent = `${student} Logs`;
+    studentContent.appendChild(studentTitle);
+
+    const logParagraph = document.createElement('p');
+    logParagraph.textContent = `Logs for ${student} will be displayed here.`;
+    studentContent.appendChild(logParagraph);
+
+    contentContainer.appendChild(studentContent);
+  });
+
+  timeLogsDiv.appendChild(contentContainer);
+
+  // Function to switch between tabs
+  function switchTab(studentNumber) {
+    const allContent = document.querySelectorAll('.student-content');
+    allContent.forEach((content) => (content.style.display = 'none')); // Hide all content
+
+    const selectedContent = document.getElementById(`student-${studentNumber}`);
+    selectedContent.style.display = 'block'; // Show the selected student's content
+
+    const allTabs = document.querySelectorAll('.tab-item');
+    allTabs.forEach((tab) => tab.classList.remove('active-tab')); // Remove active class from all tabs
+
+    const selectedTab = document.querySelector(`.tab-item[data-student="${studentNumber}"]`);
+    selectedTab.classList.add('active-tab'); // Add active class to the selected tab
   }
-  
+
+  // Activate the first tab by default
+  switchTab(1);
+
+  return timeLogsDiv;
+}
