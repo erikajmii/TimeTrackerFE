@@ -1,0 +1,54 @@
+body, html {
+    color: white;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Tabs styling */
+  .tabs-container {
+    margin-top: 20px;
+  }
+  
+  .tabs-list {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tab-item {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  .tab-item:hover {
+    background-color: #333;
+  }
+  
+  .active-tab {
+    background-color: #6200ea;
+    color: white;
+  }
+  
+  /* Content container for student logs */
+  .tab-content-container {
+    margin-top: 20px;
+  }
+  
+  .student-content {
+    background-color: #2b2b2b;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .student-content h2 {
+    margin-top: 0;
+  }
+  
