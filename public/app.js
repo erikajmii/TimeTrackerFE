@@ -14,41 +14,75 @@ function loadCSS(filename) {
 }
 
 // Function to call the backend for login
+// Function to call the backend for login
 async function login() {
   try {
-    const loginRequest = {
-      NetID: document.getElementById('NetID').value,
-      Password: document.getElementById('password').value,
-    };
+      const loginRequest = {
+          NetID: document.getElementById('NetID').value,  // Assuming _netId is defined in your JS code
+          Password: document.getElementById('password').value  // Assuming _password is defined in your JS code
+      };
 
-    const url = 'http://localhost:5264/api/auth/login';
+      const url = "http://localhost:5264/api/auth/login";
 
-    const formBody = new URLSearchParams(loginRequest);
+      // Convert the loginRequest object into URL-encoded form data
+      const formBody = new URLSearchParams(loginRequest);
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: formBody,
-    });
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: formBody,
+          credentials: 'include'
+      });
 
-    if (response.ok) {
-      const result = await response.json();
-
+    if (response.ok) {  // Check if response status is OK
+      const result = await response.json();  // Parse JSON response
       if (result.requiresPasswordChange) {
-        alert('Password change required');
+          alert("Password change required");  // Display alert in JS
+          // Assuming the token is received in result.message
+          document.cookie = `jwt=${result.message}; path=/; secure; HttpOnly`; // Set cookie
+          return result;
       } else {
-        alert('Login successful');
+          alert("Login successful");
+          // Set the JWT token in a cookie
+          document.cookie = `jwt=${result.message}; path=/; secure; HttpOnly`; // Set cookie
+          return result;
       }
-    } else {
-      const error = await response.text();
-      alert('Error: ' + error);
-    }
+  }
   } catch (ex) {
-    alert('Error: ' + ex.message);
+      alert("Error: " + ex.message);  // Catch and display any other exceptions
   }
 }
+
+// Function to update the password in the backend
+const updatePassword = async (netID, newPassword) => {
+  try {
+    //call the api
+    const response = await fetch('http://localhost:5264/api/auth/update-password', {
+        method: 'PATCH',
+        credentials: 'include', // make sure cookies are sent
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({ Password: newPassword }) 
+    });
+
+    //if repsonse is okay
+    if (response.ok) {
+        console.log('Password updated successfully');
+        return true; 
+    } else {
+        //if there is an error
+        const errorText = await response.text(); 
+        console.error('Error updating password:', response.statusText, errorText);
+        return false; 
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return false; 
+  }
+};
 
 function initApp() {
   const appDiv = document.getElementById('app');
@@ -58,43 +92,41 @@ function initApp() {
   appDiv.appendChild(createLoginForm());
   console.log('Login form loaded');
 
-  // Handle login form submission
-  appDiv.addEventListener('submit', async function (event) {
+  appDiv.addEventListener('submit', async function(event) {
     event.preventDefault();
-    console.log('Login form submitted');
+    console.log("Login form submitted");
 
-    try {
-      const loginResponse = await login();
-      console.log('Login successful:', loginResponse);
+    const loginResponse = await login();
 
-      appDiv.innerHTML = '';
-      loadCSS('/css/passwordSet.css');
+    console.log("after awaiting");
+    console.log(loginResponse);
 
-      /* createPasswordPopup(function onPasswordSet() {
+    if (loginResponse && loginResponse.requiresPasswordChange) {
+        appDiv.innerHTML = '';
+        loadCSS('/css/passwordSet.css');
+        createPasswordPopup(async function onPasswordSet(newPassword) {
+          const netID = loginResponse.NetID; // Get NetID from the login response
+          const passwordUpdateSuccess = await updatePassword(netID, newPassword); // Pass the NetID and new password
+        
+          if (passwordUpdateSuccess) {
+              appDiv.innerHTML = '';
+              loadCSS('/css/homepage.css');
+              appDiv.appendChild(createHomepage());
+              //window.location.hash = "#home";
+              setupNavigation();
+              window.location.hash = '#home';
+          }
+        });
+    } else if (loginResponse && !loginResponse.requiresPasswordChange) {
         appDiv.innerHTML = '';
         loadCSS('/css/homepage.css');
         appDiv.appendChild(createHomepage());
-        console.log('Homepage loaded');
-
-        setupNavigation(); 
+        console.log("homepage loaded");
+        //window.location.hash = "#home";
+        setupNavigation();
         window.location.hash = '#home';
-      }); */
-      
-      appDiv.innerHTML = '';
-      loadCSS('/css/homepage.css');
-      appDiv.appendChild(createHomepage());
-      console.log('Homepage loaded');
-
-      setupNavigation(); 
-      window.location.hash = '#home';
-
-    } catch (error) {
-      const errorMessage = document.createElement('p');
-      errorMessage.textContent = error.message || 'Login failed. Please try again.';
-      errorMessage.style.color = 'red';
-      appDiv.appendChild(errorMessage);
     }
-  });
+});
 }
 
 // Navigation between different pages

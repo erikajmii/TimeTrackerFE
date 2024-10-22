@@ -1,7 +1,7 @@
 // homepage.js
 export function createHomepage() {
   const homepageDiv = document.createElement('div');
-
+  console.log("here");
   // Create header
   const header = document.createElement('header');
   header.innerHTML = `
