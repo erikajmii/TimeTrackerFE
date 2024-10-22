@@ -1,6 +1,6 @@
 body, html {
   color: white;
-  background-color:black;
+  background-color: black;
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
@@ -51,41 +51,54 @@ header {
   background-color: #575757;
   border-radius: 4px;
 }
-/* Content container for "This Week" and "New Entry" */
+
+/* Content container for main sections */
 .content-container {
   display: flex;
-  justify-content: space-between;
+  width: calc(100% - 220px); /* Full width minus sidebar */
   padding: 20px;
-  width: 100%;
+  gap: 20px; /* Adds space between the left and right columns */
+}
+
+/* Left column for "This Week" and "My Groups" */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  width: 55%; /* Adjusted to take a larger portion of the content-container */
+  gap: 20px; /* Adds space between sections */
 }
 
 /* "This Week" section styling */
 .this-week {
-  width: 48%;
-  background-color: black; /* Dark gray background */
+  background-color: #1A1A1A; /* Dark gray background */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
   color: #E0E0E0; /* Light text */
+  width: 100%; /* Ensures it takes full width of left-column */
 }
 
 .this-week h2 {
   color: white; 
 }
 
-#time-logs {
-  list-style-type: none;
-  padding: 0;
+/* "My Groups" section styling */
+.my-groups {
+  background-color: #1A1A1A; /* Dark gray background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: #E0E0E0; 
+  width: 100%; /* Ensures it takes full width of left-column */
 }
 
-#time-logs li {
-  margin-bottom: 10px;
-  color: #E0E0E0;
+.my-groups h2 {
+  color: white;
 }
 
-/* "New Entry" form styling */
+/* Right column for "New Entry" */
 .new-entry {
-  width: 35%;
+  width: 45%; /* Occupies the right side */
   background-color: #1F1F1F; /* Dark gray background */
   padding: 20px;
   border-radius: 8px;
@@ -142,13 +155,3 @@ header {
   display: none;
   color: #03DAC6; /* Light green for success message */
 }
-
-/*
-/* Main Content Area */
-/*
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: rgb(25, 24, 24);
-}
-*/
