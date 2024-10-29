@@ -142,7 +142,7 @@ export function createPasswordPopup(onPasswordSet) {
     }
   });
 
-  // Optional: Close popup on clicking outside
+  //Close popup on clicking outside
   popup.addEventListener('click', (event) => {
     if (event.target === popup) {
       popup.remove(); // Close the popup if the background is clicked
