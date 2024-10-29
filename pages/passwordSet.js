@@ -122,13 +122,23 @@ export function createPasswordPopup(onPasswordSet) {
     const confirmPassword = document.getElementById('confirmPassword').value;
     const errorMessage = document.getElementById('errorMessage');
 
-    if (newPassword === confirmPassword) {
+    // Regular expression for standard password requirements
+    const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    // Check if new password meets the requirements
+    if (!passwordRequirements.test(newPassword)) {
+      errorMessage.textContent = 'Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.';
+      return;
+    }
+
+    // Check if passwords match
+    if (newPassword !== confirmPassword) {
+      errorMessage.textContent = 'Passwords do not match.';
+    } else {
       errorMessage.textContent = '';  // Clear any previous error
       alert('Password has been set successfully!');
       popup.remove();  // Close the popup since the password was successfully set
       onPasswordSet(newPassword);  // Call the callback function with the new password
-    } else {
-      errorMessage.textContent = 'Passwords do not match.';  // Show error if passwords don't match
     }
   });
 

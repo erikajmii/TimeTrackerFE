@@ -1,8 +1,9 @@
-// homepage.js
 export function createHomepage() {
+  // Create the main div for the homepage content
   const homepageDiv = document.createElement('div');
   console.log("here");
-  // Create header
+
+  // Create and set up the header section
   const header = document.createElement('header');
   header.innerHTML = `
     <div class="header-content">
@@ -10,11 +11,11 @@ export function createHomepage() {
     </div>
   `;
 
-  // Create container for sidebar and main content
+  // Create the main container for the sidebar and content area
   const container = document.createElement('div');
   container.classList.add('container');
 
-  // Create sidebar navigation
+  // Create the sidebar navigation
   const sidebar = document.createElement('nav');
   sidebar.classList.add('sidebar');
   sidebar.innerHTML = `
@@ -26,21 +27,21 @@ export function createHomepage() {
     </ul>
   `;
 
-  // Create content container for "This Week", "My Groups", and "New Entry" form
+  // Create a container for the main content sections
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('content-container');
 
-  // "This Week" section
+  // Create the "This Week" section
   const thisWeekSection = document.createElement('section');
   thisWeekSection.classList.add('this-week');
   thisWeekSection.innerHTML = `<h2>This Week</h2>`;
 
-  // "My Groups" section
+  // Create the "My Groups" section
   const myGroupsSection = document.createElement('section');
   myGroupsSection.classList.add('my-groups');
   myGroupsSection.innerHTML = `<h2>My Group</h2>`;
 
-  // "New Entry" form section
+  // Create the "New Entry" form section
   const newEntrySection = document.createElement('section');
   newEntrySection.classList.add('new-entry');
   newEntrySection.innerHTML = `
@@ -53,7 +54,8 @@ export function createHomepage() {
       <input type="text" id="entry-time" required pattern="^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$">
 
       <label for="account-description">Account of what you did:</label>
-      <textarea id="account-description"></textarea>
+      <textarea id="account-description" minlength="30" required></textarea>
+      <small id="description-warning" style="color:red;display:none;">Description must be at least 30 characters long.</small>
 
       <label for="problems">Problems encountered:</label>
       <textarea id="problems"></textarea>
@@ -67,18 +69,39 @@ export function createHomepage() {
     <p id="form-success" style="display:none;color:green;">Entry submitted successfully!</p>
   `;
 
-  // Append sections to content container
+  // Append the individual sections to the content container
   contentContainer.appendChild(thisWeekSection);
   contentContainer.appendChild(myGroupsSection);
   contentContainer.appendChild(newEntrySection);
 
-  // Append sidebar and content container to the main container
+  // Add the sidebar and content container to the main container
   container.appendChild(sidebar);
   container.appendChild(contentContainer);
 
-  // Append header and main container to the homepage div
+  // Add the header and main container to the homepage div
   homepageDiv.appendChild(header);
   homepageDiv.appendChild(container);
 
-  return homepageDiv;
+  // Set today's date as min and max for the date input field
+  const today = new Date().toISOString().split('T')[0]; // Format the current date as YYYY-MM-DD
+  const dateInput = newEntrySection.querySelector('#entry-date');
+  dateInput.min = today; // Set the minimum date to today
+  dateInput.max = today; // Set the maximum date to today, limiting input to today's date only
+
+  // Add event listener for form validation on submission
+  const form = newEntrySection.querySelector('#entry-form');
+  const accountDescription = newEntrySection.querySelector('#account-description');
+  const descriptionWarning = newEntrySection.querySelector('#description-warning');
+
+  form.addEventListener('submit', (event) => {
+    // Prevent form submission if "Account of what you did" is too short
+    if (accountDescription.value.length < 30) {
+      event.preventDefault(); // Stop form submission
+      descriptionWarning.style.display = 'block'; // Show warning message
+    } else {
+      descriptionWarning.style.display = 'none'; // Hide warning message if valid
+    }
+  });
+
+  return homepageDiv; // Return the completed homepage element
 }
