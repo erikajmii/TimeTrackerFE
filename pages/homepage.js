@@ -93,13 +93,56 @@ export function createHomepage() {
   const accountDescription = newEntrySection.querySelector('#account-description');
   const descriptionWarning = newEntrySection.querySelector('#description-warning');
 
-  form.addEventListener('submit', (event) => {
-    // Prevent form submission if "Account of what you did" is too short
+  //On submit new entry
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    //check input validation 
     if (accountDescription.value.length < 30) {
-      event.preventDefault(); // Stop form submission
-      descriptionWarning.style.display = 'block'; // Show warning message
+      descriptionWarning.style.display = 'block';
+      return;
     } else {
-      descriptionWarning.style.display = 'none'; // Hide warning message if valid
+      descriptionWarning.style.display = 'none';
+    }
+
+    //variables to send to the backend
+    const entryDate = dateInput.value;
+    const entryTime = document.getElementById('entry-time').value;
+    const description = accountDescription.value;
+    const problems = document.getElementById('problems').value;
+    const planned = document.getElementById('planned').value;
+   
+    //post to the backend
+    try {
+      //api endpoint
+      const response = await fetch('http://localhost:5264/api/timelogs/entry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          //take this out later
+         // 'Authorization': `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1")}`
+        },
+        credentials: 'include', //make sure to include cookies
+        body: new URLSearchParams({
+          date: entryDate,
+          time: entryTime,
+          description,
+          problems,
+          planned
+        })
+      });
+
+      //const successMessage = document.getElementById("successMessage"); // Make sure ID exists in the HTML
+
+      //if response is okay
+      if (response.ok) {
+        descriptionWarning.style.display = 'none';
+        form.reset();
+      } else {
+        console.error('Failed to submit entry:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting entry:', error);
     }
   });
 
