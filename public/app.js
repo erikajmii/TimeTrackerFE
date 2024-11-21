@@ -14,7 +14,6 @@ function loadCSS(filename) {
 }
 
 // Function to call the backend for login
-// Function to call the backend for login
 async function login() {
   try {
       const loginRequest = {
@@ -130,49 +129,48 @@ function initApp() {
 }
 
 // Navigation between different pages
-function setupNavigation() {
-  const navItems = document.querySelectorAll('.nav-item'); 
-  const appDiv = document.getElementById('app'); 
+function renderPage() {
+  const appDiv = document.getElementById('app');
+  const currentHash = window.location.hash.substring(1); // Remove the '#' character
 
-  // Loop through each nav item and attach event listeners
+  appDiv.innerHTML = ''; // Clear the current content
+
+  switch (currentHash) {
+    case 'timelogs':
+      loadCSS('/css/timeLogs.css');
+      appDiv.appendChild(createTimeLogsPage());
+      console.log('Time Logs page loaded');
+      break;
+    case 'home':
+    default:
+      loadCSS('/css/homepage.css');
+      appDiv.appendChild(createHomepage());
+      console.log('Homepage loaded');
+      break;
+  }
+}
+
+// Navigation setup
+function setupNavigation() {
+  const navItems = document.querySelectorAll('.nav-item');
+
+  // Add click event listener to each navigation item
   navItems.forEach((item) => {
     item.addEventListener('click', (e) => {
-      e.preventDefault(); 
-
-      const targetPage = e.target.getAttribute('href').substring(1);
-      appDiv.innerHTML = '';
-
-      // Load the correct page based on the target
-      switch (targetPage) {
-        case 'home':
-          loadCSS('/css/homepage.css');
-          appDiv.appendChild(createHomepage());
-          break;
-        case 'timelogs':
-          loadCSS('/css/timeLogs.css');
-          appDiv.appendChild(createTimeLogsPage());
-          console.log('Time Logs page loaded');
-          break;
-        case 'peerreview':
-          break;
-        case 'profile':
-          break;
-        default:
-          console.error('Unknown page:', targetPage);
-      }
-
-      // Update the URL hash without reloading the page
-      window.location.hash = `#${targetPage}`;
+      e.preventDefault();
+      const targetHash = e.target.getAttribute('href');
+      window.location.hash = targetHash; // Update the URL hash
     });
   });
 
-  // Load the page based on the current hash on page load
-  const currentHash = window.location.hash.substring(1);
-  if (currentHash) {
-    document.querySelector(`a[href="#${currentHash}"]`).click();
-  } else {
-    document.querySelector('a[href="#home"]').click();
-  }
+  // Render the page on hash change
+  window.addEventListener('hashchange', renderPage);
+
+  // Render the current page on initial load
+  renderPage();
 }
+
+window.onload = initApp; // Initialize the application
+
 
 window.onload = initApp;
