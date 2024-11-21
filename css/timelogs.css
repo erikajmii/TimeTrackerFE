@@ -19,38 +19,37 @@ header {
 }
 
 /* Container for sidebar and main content */
-.container {
+.container-timelogs {
   display: flex;
   height: calc(100vh - 42px); /* Subtract header height */
 }
 
 /* Sidebar Navigation */
-.sidebar {
+.sidebar-timelogs {
   background-color: rgb(25, 24, 24);
   width: 200px;
   padding: 15px;
   height: 100%;
-  border-radius: 0; /* Remove rounded corners */
+  border-radius: 2px;
   box-shadow: 2px;
-  margin-top: 0; /* Align flush with the header */
 }
 
 /* Active navigation item styling */
-.sidebar ul li a.active-tab {
+.sidebar-timelogs ul li a.active-tab {
   background-color: #575757; /* Gray background for the active page */
   border-radius: 4px;
 }
 
-.sidebar ul {
+.sidebar-timelogs ul {
   list-style-type: none;
   padding: 0;
 }
 
-.sidebar ul li {
+.sidebar-timelogs ul li {
   margin-bottom: 20px;
 }
 
-.sidebar ul li a {
+.sidebar-timelogs ul li a {
   color: white;
   text-decoration: none;
   font-size: 18px;
@@ -58,17 +57,22 @@ header {
   padding: 10px;
 }
 
-.sidebar ul li a:hover {
+.sidebar-timelogs ul li a:hover {
   background-color: #575757;
   border-radius: 4px;
 }
 
 /* Content container for main sections */
-.content-container {
+.content-container-timelogs {
   display: flex;
-  width: calc(100% - 220px); /* Full width minus sidebar */
+  flex-direction: column;
+  gap: 20px; /* Adds space between sections */
   padding: 20px;
-  gap: 20px; /* Adds space between the left and right columns */
+  background-color: #1A1A1A;
+  color: #E0E0E0;
+  width: calc(100% - 220px); /* Full width minus sidebar */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow-y: auto; /* Allow scrolling for overflow content */
 }
 
