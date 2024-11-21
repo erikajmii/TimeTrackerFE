@@ -3,6 +3,7 @@ export function createPeerReviewPage() {
   
     // Header for "Time Tracker"
     const header = document.createElement('header');
+    header.classList.add('peer-review-header');
     header.innerHTML = `
       <div class="header-content">
         <h1>Time Tracker</h1>
@@ -12,11 +13,11 @@ export function createPeerReviewPage() {
   
     // Main container for sidebar and content
     const container = document.createElement('div');
-    container.classList.add('container');
+    container.classList.add('container-peer-review');
   
-    // Sidebar navigation (reused from the homepage)
+    // Sidebar navigation
     const sidebar = document.createElement('nav');
-    sidebar.classList.add('sidebar');
+    sidebar.classList.add('sidebar-peer-review');
     sidebar.innerHTML = `
       <ul>
         <li><a href="#home" class="nav-item">Home</a></li>
@@ -29,7 +30,7 @@ export function createPeerReviewPage() {
   
     // Content container for peer review
     const contentContainer = document.createElement('div');
-    contentContainer.classList.add('content-container');
+    contentContainer.classList.add('content-container-peer-review');
   
     // Title for the Peer Review page
     const title = document.createElement('h2');
@@ -37,11 +38,36 @@ export function createPeerReviewPage() {
     title.style.marginBottom = '20px';
     contentContainer.appendChild(title);
   
+    // Dropdown for selecting the person to review
+    const dropdownContainer = document.createElement('div');
+    dropdownContainer.classList.add('dropdown-container-peer-review');
+  
+    const dropdownLabel = document.createElement('label');
+    dropdownLabel.textContent = 'Select Person to Review:';
+    dropdownLabel.setAttribute('for', 'review-person');
+  
+    const dropdown = document.createElement('select');
+    dropdown.setAttribute('id', 'review-person');
+    dropdown.setAttribute('name', 'review-person');
+  
+    // Placeholder names
+    const placeholderNames = ['John Doe', 'Jane Smith', 'Alex Johnson', 'Emily Davis'];
+  
+    placeholderNames.forEach((name) => {
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      dropdown.appendChild(option);
+    });
+  
+    dropdownContainer.appendChild(dropdownLabel);
+    dropdownContainer.appendChild(dropdown);
+    contentContainer.appendChild(dropdownContainer);
+  
     // Questions container
     const questionsContainer = document.createElement('div');
-    questionsContainer.classList.add('questions-container');
+    questionsContainer.classList.add('questions-container-peer-review');
   
-    // Placeholder questions
     const placeholderQuestions = [
       'What did this team member do well?',
       'What could this team member improve on?',
@@ -49,16 +75,13 @@ export function createPeerReviewPage() {
     ];
   
     placeholderQuestions.forEach((question, index) => {
-      // Create a question container
       const questionDiv = document.createElement('div');
-      questionDiv.classList.add('question');
+      questionDiv.classList.add('question-peer-review');
   
-      // Question label
       const questionLabel = document.createElement('label');
       questionLabel.textContent = `${index + 1}. ${question}`;
       questionDiv.appendChild(questionLabel);
   
-      // Answer textarea
       const answerTextarea = document.createElement('textarea');
       answerTextarea.placeholder = 'Write your response here...';
       questionDiv.appendChild(answerTextarea);
@@ -71,9 +94,7 @@ export function createPeerReviewPage() {
     // Submit button
     const submitButton = document.createElement('button');
     submitButton.textContent = 'Submit Review';
-    submitButton.addEventListener('click', () => {
-      alert('Peer review responses submitted!'); // Placeholder functionality
-    });
+    submitButton.classList.add('button-peer-review');
     contentContainer.appendChild(submitButton);
   
     // Add content container to the main container
