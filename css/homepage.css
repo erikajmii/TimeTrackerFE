@@ -30,12 +30,6 @@ header {
   box-shadow: 2px;
 }
 
-/* Active navigation item styling */
-.sidebar ul li a.active-tab {
-  background-color: #575757; /* Gray background for the active page */
-  border-radius: 4px;
-}
-
 .sidebar ul {
   list-style-type: none;
   padding: 0;
