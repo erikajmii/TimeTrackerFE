@@ -1,4 +1,3 @@
-// Function to initialize the Time Logs page
 export function createTimeLogsPage() {
   console.log("Initializing Time Logs page...");
 
@@ -64,22 +63,59 @@ export function createTimeLogsPage() {
   timeLogsDiv.appendChild(header);
   timeLogsDiv.appendChild(container);
 
-  // Example dynamic data (replace with real data integration)
-  const exampleData = [
-    { date: '11/18/2024', timeSpent: '2:00', accomplished: 'Reviewed project documentation' },
-    { date: '11/19/2024', timeSpent: '3:00', accomplished: 'Worked on feature implementation' },
-  ];
-
-  const tableBody = tableSection.querySelector('#timelogs-entries');
-  exampleData.forEach((entry) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${entry.date}</td>
-      <td>${entry.timeSpent}</td>
-      <td>${entry.accomplished}</td>
-    `;
-    tableBody.appendChild(row);
-  });
+  // Fetch time logs for the logged-in user from the backend
+  fetch('http://localhost:5264/api/timelogs/me', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Access the table body where rows will be appended
+      const tableBody = tableSection.querySelector('#timelogs-entries');
+  
+      // Check if data contains logs
+      if (data && data.length > 0) {
+        let hasEntries = false; // To track if there are any entries
+  
+        // Iterate through each log
+        data.forEach((log) => {
+          if (log.timeLogEntries && log.timeLogEntries.length > 0) {
+            hasEntries = true;
+  
+            // Iterate through each entry in the log
+            log.timeLogEntries.forEach((entry) => {
+              const formattedDate = entry.createdAt.slice(0, 10);
+              const durationInHours = `${Math.floor(entry.duration / 60)}:${(entry.duration % 60).toString().padStart(2, '0')}`;
+  
+              // Create a row for the entry
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${formattedDate}</td>
+                <td>${durationInHours}</td>
+                <td>${entry.description}</td>
+              `;
+              tableBody.appendChild(row);
+            });
+          }
+        });
+  
+        // If no entries found in all logs
+        if (!hasEntries) {
+          const noEntriesRow = document.createElement('tr');
+          noEntriesRow.innerHTML = `<td colspan="3">No time logs available.</td>`;
+          tableBody.appendChild(noEntriesRow);
+        }
+      } else {
+        // If no logs are present
+        const noEntriesRow = document.createElement('tr');
+        noEntriesRow.innerHTML = `<td colspan="3">No time logs available.</td>`;
+        tableBody.appendChild(noEntriesRow);
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching time logs:', error);
+    });
 
   return timeLogsDiv;
 }
