@@ -19,7 +19,7 @@ header.peer-review-header {
 .sidebar-peer-review {
     background-color: rgb(25, 24, 24);
     width: 200px;
-    padding: 15px;
+    padding: 15px 0; /* Remove left and right padding */
     height: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add slight shadow */
 }
@@ -39,17 +39,17 @@ header.peer-review-header {
     text-decoration: none;
     font-size: 18px;
     display: block;
-    padding: 10px 15px; /* Match padding from homepage */
-    border-radius: 4px;
-    transition: background-color 0.3s ease; /* Add hover effect */
+    padding: 10px 15px; /* Adjust padding for alignment */
 }
 
 .sidebar-peer-review ul li a.active-tab {
     background-color: #575757;
+    border-radius: 4px;
 }
 
 .sidebar-peer-review ul li a:hover {
     background-color: #575757;
+    border-radius: 4px;
 }
 
 /* Content container for main sections */
