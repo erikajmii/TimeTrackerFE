@@ -30,6 +30,12 @@ header {
   box-shadow: 2px;
 }
 
+/* Active navigation item styling */
+.sidebar ul li a.active {
+  background-color: #575757; /* Gray background for the active page */
+  border-radius: 4px;
+}
+
 .sidebar ul {
   list-style-type: none;
   padding: 0;
@@ -79,8 +85,35 @@ header {
 }
 
 .this-week h2 {
-  color: white; 
+  color: white;
+  border-bottom: 1px solid #333; /* Bottom border for title */
+  padding-bottom: 10px;
 }
+
+/* Table styling within "This Week" */
+.this-week table {
+  width: 100%;
+  border-collapse: collapse; /* Collapse borders to make a single line */
+  margin-top: 15px;
+}
+
+.this-week th,
+.this-week td {
+  border: 1px solid #333; /* Border around each cell */
+  padding: 10px;
+  text-align: left;
+}
+
+.this-week th {
+  background-color: #333; /* Darker background for headers */
+  color: #E0E0E0;
+}
+
+.this-week td {
+  background-color: #1A1A1A; /* Match section background */
+  color: #E0E0E0;
+}
+
 
 /* "My Groups" section styling */
 .my-groups {
