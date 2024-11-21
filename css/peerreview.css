@@ -1,0 +1,100 @@
+/* Header */
+header {
+    background-color: #6200EA;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Container for sidebar and main content */
+  .container {
+    display: flex;
+    height: calc(100vh - 42px);
+  }
+  
+  /* Sidebar Navigation */
+  .sidebar {
+    background-color: rgb(25, 24, 24);
+    width: 200px;
+    padding: 15px;
+    height: 100%;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+  }
+  
+  .sidebar ul li a.active-tab {
+    background-color: #575757;
+    border-radius: 4px;
+  }
+  
+  .sidebar ul li a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+  }
+  
+  /* Content container for main sections */
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: #1A1A1A;
+    color: #E0E0E0;
+    width: calc(100% - 220px);
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .questions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .question label {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .question textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #E0E0E0;
+    border: 1px solid #575757;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #6200EA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  button:hover {
+    background-color: #4104ff;
+  }
+  
