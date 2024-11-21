@@ -1,54 +1,127 @@
 body, html {
-    color: white;
-    background-color: black;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Tabs styling */
-  .tabs-container {
-    margin-top: 20px;
-  }
-  
-  .tabs-list {
-    list-style-type: none;
-    display: flex;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .tab-item {
-    padding: 10px 20px;
-    margin-right: 10px;
-    cursor: pointer;
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    border-radius: 4px;
-  }
-  
-  .tab-item:hover {
-    background-color: #333;
-  }
-  
-  .active-tab {
-    background-color: #6200ea;
-    color: white;
-  }
-  
-  /* Content container for student logs */
-  .tab-content-container {
-    margin-top: 20px;
-  }
-  
-  .student-content {
-    background-color: #2b2b2b;
-    padding: 20px;
-    border-radius: 8px;
-    color: white;
-  }
-  
-  .student-content h2 {
-    margin-top: 0;
-  }
-  
+  color: white;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%; /* Ensure the body and HTML fill the viewport */
+}
+
+/* Header */
+header {
+  background-color: #6200EA;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  width: 100%; /* Match the width of the homepage */
+  position: relative; /* Ensure it stays above all content */
+  z-index: 10; /* Keep it on top of other elements */
+}
+
+/* Container for sidebar and main content */
+.container {
+  display: flex;
+  height: calc(100vh - 42px); /* Subtract header height */
+}
+
+/* Sidebar Navigation */
+.sidebar {
+  background-color: rgb(25, 24, 24);
+  width: 200px;
+  padding: 15px;
+  height: 100%;
+  border-radius: 0; /* Remove rounded corners */
+  box-shadow: 2px;
+  margin-top: 0; /* Align flush with the header */
+}
+
+/* Active navigation item styling */
+.sidebar ul li a.active-tab {
+  background-color: #575757; /* Gray background for the active page */
+  border-radius: 4px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 10px;
+}
+
+.sidebar ul li a:hover {
+  background-color: #575757;
+  border-radius: 4px;
+}
+
+/* Content container for main sections */
+.content-container {
+  display: flex;
+  width: calc(100% - 220px); /* Full width minus sidebar */
+  padding: 20px;
+  gap: 20px; /* Adds space between the left and right columns */
+  overflow-y: auto; /* Allow scrolling for overflow content */
+}
+
+/* Time Logs table styling */
+.this-week {
+  background-color: #1A1A1A; /* Dark gray background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+  color: #E0E0E0; /* Light text */
+  width: 100%; /* Ensures it takes full width of left-column */
+}
+
+.this-week h2 {
+  color: white;
+  border-bottom: 1px solid #333; /* Bottom border for title */
+  padding-bottom: 10px;
+}
+
+/* Table styling within "Time Logs" */
+.this-week-table {
+  width: 100%;
+  border-collapse: collapse; /* Collapse borders to make a single line */
+  margin-top: 15px;
+}
+
+.this-week-table th,
+.this-week-table td {
+  border: 1px solid #333; /* Border around each cell */
+  padding: 10px;
+  text-align: left;
+}
+
+/* Reduce width of "Date" column */
+.this-week-table th:nth-child(1),
+.this-week-table td:nth-child(1) {
+  width: 20%; /* Adjust to reduce width of the first column */
+}
+
+/* Reduce width of "Time Spent" column */
+.this-week-table th:nth-child(2),
+.this-week-table td:nth-child(2) {
+  width: 15%; /* Adjust to reduce width of the second column */
+}
+
+/* General table header styling */
+.this-week-table th {
+  background-color: #333; /* Darker background for headers */
+  color: #E0E0E0;
+}
+
+/* General table cell styling */
+.this-week-table td {
+  background-color: #1A1A1A; /* Match section background */
+  color: #E0E0E0;
+}
