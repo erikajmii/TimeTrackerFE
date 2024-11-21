@@ -1,75 +1,85 @@
-// timelogs.js
+// Function to initialize the Time Logs page
 export function createTimeLogsPage() {
+  console.log("Initializing Time Logs page...");
+
   const timeLogsDiv = document.createElement('div');
 
-  // Create title for the Time Logs page
-  const title = document.createElement('h1');
-  title.textContent = 'Time Logs';
-  timeLogsDiv.appendChild(title);
+  // Time Tracker header (reused from homepage)
+  const header = document.createElement('header');
+  header.innerHTML = `
+    <div class="header-content">
+      <h1>Time Tracker</h1>
+    </div>
+  `;
 
-  // Create container for tabs
-  const tabsContainer = document.createElement('div');
-  tabsContainer.classList.add('tabs-container');
+  // Container for sidebar and main content
+  const container = document.createElement('div');
+  container.classList.add('container');
 
-  // Create list of tabs for different students
-  const tabsList = document.createElement('ul');
-  tabsList.classList.add('tabs-list');
+  // Sidebar navigation (reused from homepage)
+  const sidebar = document.createElement('nav');
+  sidebar.classList.add('sidebar');
+  sidebar.innerHTML = `
+    <nav class="sidebar">
+      <ul>
+        <li><a href="#home" class="nav-item">Home</a></li>
+        <li><a href="#timelogs" class="nav-item active-tab">Timelogs</a></li>
+        <li><a href="#peerreview" class="nav-item">Peer Review</a></li>
+        <li><a href="#profile" class="nav-item">Profile</a></li>
+      </ul>
+    </nav>
+  `;
 
-  const students = ['Student 1', 'Student 2', 'Student 3', 'Student 4', 'Student 5'];
+  // Main content container
+  const timeLogsContent = document.createElement('div');
+  timeLogsContent.classList.add('content-container');
 
-  students.forEach((student, index) => {
-    const tab = document.createElement('li');
-    tab.classList.add('tab-item');
-    tab.textContent = student;
-    tab.dataset.student = index + 1; // Add a data attribute for student number
-    tab.addEventListener('click', () => switchTab(index + 1));
-    tabsList.appendChild(tab);
+  // Time Logs table section
+  const tableSection = document.createElement('section');
+  tableSection.classList.add('this-week'); // Reuse the same class for consistency
+  tableSection.innerHTML = `
+    <h2>Time Logs</h2>
+    <table class="this-week-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time Spent (hh:mm)</th>
+          <th>What Was Accomplished</th>
+        </tr>
+      </thead>
+      <tbody id="timelogs-entries">
+        <!-- Dynamic entries will be inserted here -->
+      </tbody>
+    </table>
+  `;
+
+  // Append the table section to the main content
+  timeLogsContent.appendChild(tableSection);
+
+  // Append everything to the container
+  container.appendChild(sidebar);
+  container.appendChild(timeLogsContent);
+
+  // Add the header and container to the main div
+  timeLogsDiv.appendChild(header);
+  timeLogsDiv.appendChild(container);
+
+  // Example dynamic data (replace with real data integration)
+  const exampleData = [
+    { date: '11/18/2024', timeSpent: '2:00', accomplished: 'Reviewed project documentation' },
+    { date: '11/19/2024', timeSpent: '3:00', accomplished: 'Worked on feature implementation' },
+  ];
+
+  const tableBody = tableSection.querySelector('#timelogs-entries');
+  exampleData.forEach((entry) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${entry.date}</td>
+      <td>${entry.timeSpent}</td>
+      <td>${entry.accomplished}</td>
+    `;
+    tableBody.appendChild(row);
   });
-
-  tabsContainer.appendChild(tabsList);
-  timeLogsDiv.appendChild(tabsContainer);
-
-  // Create content container for each student's logs
-  const contentContainer = document.createElement('div');
-  contentContainer.classList.add('tab-content-container');
-
-  // Create content for each student and hide it initially
-  students.forEach((student, index) => {
-    const studentContent = document.createElement('div');
-    studentContent.classList.add('student-content');
-    studentContent.id = `student-${index + 1}`;
-    studentContent.style.display = 'none'; 
-
-    const studentTitle = document.createElement('h2');
-    studentTitle.textContent = `${student} Logs`;
-    studentContent.appendChild(studentTitle);
-
-    const logParagraph = document.createElement('p');
-    logParagraph.textContent = `Logs for ${student} will be displayed here.`;
-    studentContent.appendChild(logParagraph);
-
-    contentContainer.appendChild(studentContent);
-  });
-
-  timeLogsDiv.appendChild(contentContainer);
-
-  // Function to switch between tabs
-  function switchTab(studentNumber) {
-    const allContent = document.querySelectorAll('.student-content');
-    allContent.forEach((content) => (content.style.display = 'none')); // Hide all content
-
-    const selectedContent = document.getElementById(`student-${studentNumber}`);
-    selectedContent.style.display = 'block'; // Show the selected student's content
-
-    const allTabs = document.querySelectorAll('.tab-item');
-    allTabs.forEach((tab) => tab.classList.remove('active-tab')); // Remove active class from all tabs
-
-    const selectedTab = document.querySelector(`.tab-item[data-student="${studentNumber}"]`);
-    selectedTab.classList.add('active-tab'); // Add active class to the selected tab
-  }
-
-  // Activate the first tab by default
-  switchTab(1);
 
   return timeLogsDiv;
 }
