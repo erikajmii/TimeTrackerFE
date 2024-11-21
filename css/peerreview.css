@@ -1,5 +1,5 @@
 /* Header */
-header {
+header.peer-review-header {
     background-color: #6200EA;
     color: white;
     padding: 5px;
@@ -7,84 +7,86 @@ header {
     width: 100%;
     position: relative;
     z-index: 10;
-  }
-  
-  /* Container for sidebar and main content */
-  .container {
+}
+
+/* Container for sidebar and main content */
+.container-peer-review {
     display: flex;
     height: calc(100vh - 42px);
-  }
-  
-  /* Sidebar Navigation */
-  .sidebar {
+}
+
+/* Sidebar Navigation */
+.sidebar-peer-review {
     background-color: rgb(25, 24, 24);
     width: 200px;
     padding: 15px;
     height: 100%;
-  }
-  
-  .sidebar ul {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add slight shadow */
+}
+
+.sidebar-peer-review ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  .sidebar ul li {
+    margin: 0; /* Remove default margin */
+}
+
+.sidebar-peer-review ul li {
     margin-bottom: 20px;
-  }
-  
-  .sidebar ul li a {
+}
+
+.sidebar-peer-review ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
     display: block;
-    padding: 10px;
-  }
-  
-  .sidebar ul li a.active-tab {
-    background-color: #575757;
+    padding: 10px 15px; /* Match padding from homepage */
     border-radius: 4px;
-  }
-  
-  .sidebar ul li a:hover {
+    transition: background-color 0.3s ease; /* Add hover effect */
+}
+
+.sidebar-peer-review ul li a.active-tab {
     background-color: #575757;
-    border-radius: 4px;
-  }
-  
-  /* Content container for main sections */
-  .content-container {
+}
+
+.sidebar-peer-review ul li a:hover {
+    background-color: #575757;
+}
+
+/* Content container for main sections */
+.content-container-peer-review {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
     background-color: #1A1A1A;
     color: #E0E0E0;
-    width: calc(100% - 220px);
-    margin: 20px;
+    width: calc(100% - 200px); /* Adjust to fit next to sidebar */
+    margin: 20px; /* Gap for the peer review box */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-  
-  .questions-container {
+}
+
+.questions-container-peer-review {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
-  
-  .question label {
+}
+
+.question-peer-review label {
     font-size: 18px;
     margin-bottom: 10px;
-  }
-  
-  .question textarea {
+}
+
+.question-peer-review textarea {
     width: 100%;
     padding: 10px;
     background-color: #333;
     color: #E0E0E0;
     border: 1px solid #575757;
     border-radius: 4px;
-  }
-  
-  button {
+}
+
+.button-peer-review {
     background-color: #6200EA;
     color: white;
     border: none;
@@ -92,9 +94,8 @@ header {
     padding: 10px 20px;
     cursor: pointer;
     margin-top: 20px;
-  }
-  
-  button:hover {
+}
+
+.button-peer-review:hover {
     background-color: #4104ff;
-  }
-  
+}
