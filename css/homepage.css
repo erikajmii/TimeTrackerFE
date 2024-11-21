@@ -30,6 +30,12 @@ header {
   box-shadow: 2px;
 }
 
+/* Active navigation item styling */
+.sidebar ul li a.active {
+  background-color: #575757; /* Gray background for the active page */
+  border-radius: 4px;
+}
+
 .sidebar ul {
   list-style-type: none;
   padding: 0;
@@ -96,6 +102,9 @@ header {
   border: 1px solid #333; /* Border around each cell */
   padding: 10px;
   text-align: left;
+  word-wrap: break-word; /* Enable word wrapping */
+  word-break: break-word; /* Break words at the edge of the container */
+  white-space: normal; /* Allow wrapping instead of forcing single line */
 }
 
 .this-week th {
