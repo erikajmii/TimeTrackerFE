@@ -3,6 +3,7 @@ import { createLoginForm } from '../pages/login.js'; // Import the login form
 import { createPasswordPopup } from '../pages/passwordSet.js'; // Import the password change popup
 import { createHomepage } from '../pages/homepage.js'; // Import the homepage
 import { createTimeLogsPage } from '../pages/timelogs.js'; // Import the time logs page
+import { createPeerReviewPage } from '../pages/peerreview.js'; // Import the peer review page
 
 // Function to load CSS dynamically
 function loadCSS(filename) {
@@ -141,6 +142,11 @@ function renderPage() {
       appDiv.appendChild(createTimeLogsPage());
       console.log('Time Logs page loaded');
       break;
+    case 'peerreview':
+      loadCSS('/css/peerreview.css');
+      appDiv.appendChild(createPeerReviewPage());
+      console.log('Peer Review page loaded');
+      break;
     case 'home':
     default:
       loadCSS('/css/homepage.css');
@@ -171,6 +177,3 @@ function setupNavigation() {
 }
 
 window.onload = initApp; // Initialize the application
-
-
-window.onload = initApp;
