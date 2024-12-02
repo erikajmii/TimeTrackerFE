@@ -1,3 +1,6 @@
+/* Written by Varsha Mallepalli */
+/* Written by Erika Mii */
+
 body, html {
   color: white;
   background-color: black;
@@ -8,14 +11,14 @@ body, html {
 }
 
 /* Header */
-header {
+header.timelogs-header {
   background-color: #6200EA;
   color: white;
   padding: 5px;
   text-align: center;
-  width: 100%; /* Match the width of the homepage */
-  position: relative; /* Ensure it stays above all content */
-  z-index: 10; /* Keep it on top of other elements */
+  width: 100%; 
+  position: relative; 
+  z-index: 10; 
 }
 
 /* Container for sidebar and main content */
@@ -34,12 +37,6 @@ header {
   box-shadow: 2px;
 }
 
-/* Active navigation item styling */
-.sidebar-timelogs ul li a.active-tab {
-  background-color: #575757; /* Gray background for the active page */
-  border-radius: 4px;
-}
-
 .sidebar-timelogs ul {
   list-style-type: none;
   padding: 0;
@@ -54,11 +51,16 @@ header {
   text-decoration: none;
   font-size: 18px;
   display: block;
-  padding: 10px;
+  padding: 10px; 
+}
+
+.sidebar-timelogs ul li a.active-tab {
+  background-color: #575757; /* Gray background for active link */
+  border-radius: 4px;
 }
 
 .sidebar-timelogs ul li a:hover {
-  background-color: #575757;
+  background-color: #575757; /* Hover matches active link */
   border-radius: 4px;
 }
 
@@ -66,18 +68,18 @@ header {
 .content-container-timelogs {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Adds space between sections */
+  gap: 20px; 
   padding: 20px;
-  background-color: #1A1A1A;
+  background-color: #000000;
   color: #E0E0E0;
-  width: calc(100% - 220px); /* Full width minus sidebar */
+  width: calc(100% - 220px); 
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow-y: auto; /* Allow scrolling for overflow content */
 }
 
 /* Time Logs table styling */
-.this-week {
+.timelogs-table-section {
   background-color: #1A1A1A; /* Dark gray background */
   padding: 20px;
   border-radius: 8px;
@@ -86,46 +88,46 @@ header {
   width: 100%; /* Ensures it takes full width of left-column */
 }
 
-.this-week h2 {
+.timelogs-table-section h2 {
   color: white;
   border-bottom: 1px solid #333; /* Bottom border for title */
   padding-bottom: 10px;
 }
 
 /* Table styling within "Time Logs" */
-.this-week-table {
+.timelogs-table {
   width: 100%;
   border-collapse: collapse; /* Collapse borders to make a single line */
   margin-top: 15px;
 }
 
-.this-week-table th,
-.this-week-table td {
+.timelogs-table th,
+.timelogs-table td {
   border: 1px solid #333; /* Border around each cell */
   padding: 10px;
   text-align: left;
 }
 
 /* Reduce width of "Date" column */
-.this-week-table th:nth-child(1),
-.this-week-table td:nth-child(1) {
-  width: 20%; /* Adjust to reduce width of the first column */
+.timelogs-table th:nth-child(1),
+.timelogs-table td:nth-child(1) {
+  width: 35%; /* Adjust to reduce width of the first column */
 }
 
 /* Reduce width of "Time Spent" column */
-.this-week-table th:nth-child(2),
-.this-week-table td:nth-child(2) {
+.timelogs-table th:nth-child(2),
+.timelogs-table td:nth-child(2) {
   width: 15%; /* Adjust to reduce width of the second column */
 }
 
 /* General table header styling */
-.this-week-table th {
+.timelogs-table th {
   background-color: #333; /* Darker background for headers */
   color: #E0E0E0;
 }
 
 /* General table cell styling */
-.this-week-table td {
+.timelogs-table td {
   background-color: #1A1A1A; /* Match section background */
   color: #E0E0E0;
 }
