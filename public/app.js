@@ -1,3 +1,6 @@
+// Written by Varsha Mallepalli 
+// Written by Erika Mii 
+
 // imports
 import { createLoginForm } from '../pages/login.js'; // Import the login form
 import { createPasswordPopup } from '../pages/passwordSet.js'; // Import the password change popup
