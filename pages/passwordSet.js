@@ -1,4 +1,5 @@
-//erika mii
+// Written by Erika Mii 
+
 // passwordSet.js
 export function createPasswordPopup(onPasswordSet) {
   // Create the popup for setting a new password
