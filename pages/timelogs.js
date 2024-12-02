@@ -1,10 +1,14 @@
+// Written by Varsha Mallepalli 
+// Written by Erika Mii 
+
 export function createTimeLogsPage() {
   console.log("Initializing Time Logs page...");
 
   const timeLogsDiv = document.createElement('div');
 
-  // Time Tracker header (reused from homepage)
+  // Time Tracker header
   const header = document.createElement('header');
+  header.classList.add('timelogs-header');
   header.innerHTML = `
     <div class="header-content">
       <h1>Time Tracker</h1>
@@ -13,32 +17,30 @@ export function createTimeLogsPage() {
 
   // Container for sidebar and main content
   const container = document.createElement('div');
-  container.classList.add('container');
+  container.classList.add('container-timelogs');
 
-  // Sidebar navigation (reused from homepage)
+  // Sidebar navigation
   const sidebar = document.createElement('nav');
-  sidebar.classList.add('sidebar');
+  sidebar.classList.add('sidebar-timelogs');
   sidebar.innerHTML = `
-    <nav class="sidebar">
-      <ul>
-        <li><a href="#home" class="nav-item">Home</a></li>
-        <li><a href="#timelogs" class="nav-item active-tab">Timelogs</a></li>
-        <li><a href="#peerreview" class="nav-item">Peer Review</a></li>
-        <li><a href="#profile" class="nav-item">Profile</a></li>
-      </ul>
-    </nav>
+    <ul>
+      <li><a href="#home" class="nav-item">Home</a></li>
+      <li><a href="#timelogs" class="nav-item active-tab">Timelogs</a></li>
+      <li><a href="#peerreview" class="nav-item">Peer Review</a></li>
+      <li><a href="#profile" class="nav-item">Profile</a></li>
+    </ul>
   `;
 
   // Main content container
   const timeLogsContent = document.createElement('div');
-  timeLogsContent.classList.add('content-container');
+  timeLogsContent.classList.add('content-container-timelogs');
 
   // Time Logs table section
   const tableSection = document.createElement('section');
-  tableSection.classList.add('this-week'); // Reuse the same class for consistency
+  tableSection.classList.add('timelogs-table-section');
   tableSection.innerHTML = `
     <h2>Time Logs</h2>
-    <table class="this-week-table">
+    <table class="timelogs-table">
       <thead>
         <tr>
           <th>Date</th>
@@ -71,24 +73,15 @@ export function createTimeLogsPage() {
   })
     .then(response => response.json())
     .then(data => {
-      // Access the table body where rows will be appended
       const tableBody = tableSection.querySelector('#timelogs-entries');
-  
-      // Check if data contains logs
       if (data && data.length > 0) {
-        let hasEntries = false; // To track if there are any entries
-  
-        // Iterate through each log
         data.forEach((log) => {
           if (log.timeLogEntries && log.timeLogEntries.length > 0) {
-            hasEntries = true;
-  
-            // Iterate through each entry in the log
             log.timeLogEntries.forEach((entry) => {
               const formattedDate = entry.createdAt.slice(0, 10);
-              const durationInHours = `${Math.floor(entry.duration / 60)}:${(entry.duration % 60).toString().padStart(2, '0')}`;
-  
-              // Create a row for the entry
+              const durationInHours = `${Math.floor(entry.duration / 60)}:${(entry.duration % 60)
+                .toString()
+                .padStart(2, '0')}`;
               const row = document.createElement('tr');
               row.innerHTML = `
                 <td>${formattedDate}</td>
@@ -99,23 +92,13 @@ export function createTimeLogsPage() {
             });
           }
         });
-  
-        // If no entries found in all logs
-        if (!hasEntries) {
-          const noEntriesRow = document.createElement('tr');
-          noEntriesRow.innerHTML = `<td colspan="3">No time logs available.</td>`;
-          tableBody.appendChild(noEntriesRow);
-        }
       } else {
-        // If no logs are present
         const noEntriesRow = document.createElement('tr');
         noEntriesRow.innerHTML = `<td colspan="3">No time logs available.</td>`;
         tableBody.appendChild(noEntriesRow);
       }
     })
-    .catch((error) => {
-      console.error('Error fetching time logs:', error);
-    });
+    .catch((error) => console.error('Error fetching time logs:', error));
 
   return timeLogsDiv;
 }
