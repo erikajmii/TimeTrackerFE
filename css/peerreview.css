@@ -1,9 +1,11 @@
+/* Written by Varsha Mallepalli */
+
 /* Header */
 header.peer-review-header {
-    background-color: #6200EA;
-    color: white;
-    padding: 5px;
-    text-align: center;
+    background-color: #6200EA; /* Purple header background */
+    color: white; /* White text */
+    padding: 5px; /* Space inside header */
+    text-align: center; /* Center-align the content */
     width: 100%;
     position: relative;
     z-index: 10;
@@ -18,20 +20,20 @@ header.peer-review-header {
 /* Sidebar Navigation */
 .sidebar-peer-review {
     background-color: rgb(25, 24, 24);
-    width: 200px;
-    padding: 15px 0; /* Remove left and right padding */
+    width: 200px; /* Sidebar width */
+    padding: 15px; 
     height: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add slight shadow */
+    border-radius: 2px;
+    box-shadow: 2px; 
 }
 
 .sidebar-peer-review ul {
     list-style-type: none;
     padding: 0;
-    margin: 0; /* Remove default margin */
 }
 
 .sidebar-peer-review ul li {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Space between list items */
 }
 
 .sidebar-peer-review ul li a {
@@ -39,7 +41,7 @@ header.peer-review-header {
     text-decoration: none;
     font-size: 18px;
     display: block;
-    padding: 10px 15px; /* Adjust padding for alignment */
+    padding: 10px
 }
 
 .sidebar-peer-review ul li a.active-tab {
@@ -60,23 +62,27 @@ header.peer-review-header {
     padding: 20px;
     background-color: #1A1A1A;
     color: #E0E0E0;
-    width: calc(100% - 200px); /* Adjust to fit next to sidebar */
+    width: calc(100% - 220px); /* Adjust to fit next to sidebar */
     margin: 20px; /* Gap for the peer review box */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Questions container */
+
 .questions-container-peer-review {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 20px; /* Space between questions */
 }
 
+/* Question label */
 .question-peer-review label {
     font-size: 18px;
     margin-bottom: 10px;
 }
 
+/* Textarea for question answers */
 .question-peer-review textarea {
     width: 100%;
     padding: 10px;
@@ -86,6 +92,7 @@ header.peer-review-header {
     border-radius: 4px;
 }
 
+/* Submit button */
 .button-peer-review {
     background-color: #6200EA;
     color: white;
@@ -97,5 +104,5 @@ header.peer-review-header {
 }
 
 .button-peer-review:hover {
-    background-color: #4104ff;
+    background-color: #4104ff; /* Darker purple background on hover */
 }
