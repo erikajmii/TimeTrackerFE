@@ -1,193 +1,221 @@
+/* Written by Varsha Mallepalli */
+/* Written by Erika Mii */
+
+/* Base styles for body and html elements */
 body, html {
-  color: white;
-  background-color: black;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+  color: white; /* Text color */
+  background-color: black; /* Background color */
+  margin: 0; 
+  padding: 0; 
+  font-family: Arial, sans-serif; /* Set font */
 }
 
-/* Header */
+/* Styling for the header section */
 header {
-  background-color: #6200EA;
-  color: white;
-  padding: 5px;
-  text-align: center;
+  background-color: #6200EA; /* Header background */
+  color: white; 
+  padding: 5px; /* Space around content */
+  text-align: center; 
 }
 
-/* Container for sidebar and main content */
+/* Container to structure sidebar and main content layout */
 .container {
-  display: flex;
-  height: 100vh; 
+  display: flex; 
+  height: calc(100vh - 42px); 
 }
 
-/* Sidebar Navigation */
+/* Sidebar navigation styles */
 .sidebar {
-  background-color: rgb(25, 24, 24);
-  width: 200px;
-  padding: 15px;
-  height: 100%;
+  background-color: rgb(25, 24, 24); /* Sidebar background */
+  width: 200px; 
+  padding: 15px; 
+  height: 100%; 
   border-radius: 2px;
-  box-shadow: 2px;
+  box-shadow: 2px; 
 }
 
-/* Active navigation item styling */
+/* Styling for active navigation links in sidebar */
 .sidebar ul li a.active {
-  background-color: #575757; /* Gray background for the active page */
-  border-radius: 4px;
+  background-color: #575757; 
+  border-radius: 4px; 
 }
 
+/* Unordered list styles inside sidebar */
 .sidebar ul {
-  list-style-type: none;
-  padding: 0;
+  list-style-type: none; 
+  padding: 0; 
 }
 
+/* Individual sidebar list items */
 .sidebar ul li {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Space between items */
 }
 
+/* Links in sidebar */
 .sidebar ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  display: block;
-  padding: 10px;
+  color: white; 
+  text-decoration: none; 
+  font-size: 18px; /* Font size */
+  display: block; 
+  padding: 10px; 
 }
 
+/* Hover effect for sidebar links */
 .sidebar ul li a:hover {
-  background-color: #575757;
-  border-radius: 4px;
+  background-color: #575757; 
+  border-radius: 4px; 
 }
 
-/* Content container for main sections */
+/* Main content container */
 .content-container {
-  display: flex;
-  width: calc(100% - 220px); /* Full width minus sidebar */
-  padding: 20px;
-  gap: 20px; /* Adds space between the left and right columns */
+  display: flex; 
+  width: calc(100% - 220px); 
+  padding: 20px; 
+  gap: 20px; 
 }
 
-/* Left column for "This Week" and "My Groups" */
+/* Left column for primary sections */
 .left-column {
   display: flex;
   flex-direction: column;
-  width: 55%; /* Adjusted to take a larger portion of the content-container */
-  gap: 20px; /* Adds space between sections */
+  width: 55%; 
+  gap: 20px; /* Space between sections */
 }
 
-/* "This Week" section styling */
+/* "This Week" section styles */
 .this-week {
-  background-color: #1A1A1A; /* Dark gray background */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
-  color: #E0E0E0; /* Light text */
-  width: 100%; /* Ensures it takes full width of left-column */
+  background-color: #1A1A1A; /* Section background */
+  padding: 20px; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  color: #E0E0E0; 
+  width: 100%; 
 }
 
+/* Styling for section headings */
 .this-week h2 {
-  color: white;
-  border-bottom: 1px solid #333; /* Bottom border for title */
-  padding-bottom: 10px;
+  color: white; 
+  border-bottom: 1px solid #333; 
+  padding-bottom: 10px; 
 }
 
-/* Table styling within "This Week" */
+/* Table styles inside "This Week" */
 .this-week table {
   width: 100%;
-  border-collapse: collapse; /* Collapse borders to make a single line */
-  margin-top: 15px;
+  border-collapse: collapse; 
+  margin-top: 15px; 
 }
 
+/* Table cell styles */
 .this-week th,
 .this-week td {
-  border: 1px solid #333; /* Border around each cell */
-  padding: 10px;
-  text-align: left;
-  word-wrap: break-word; /* Enable word wrapping */
-  word-break: break-word; /* Break words at the edge of the container */
-  white-space: normal; /* Allow wrapping instead of forcing single line */
+  border: 1px solid #333; /* Cell borders */
+  padding: 10px; /* Space inside cells */
+  text-align: left; /* Align text */
+  word-wrap: break-word; /* Allow word wrapping */
+  word-break: break-word; 
+  white-space: normal; 
 }
 
+/* Specific width for Date column */
+.this-week th:first-child,
+.this-week td:first-child {
+  width: 100px;
+}
+
+/* Specific width for Time Spent column */
+.this-week th:nth-child(2),
+.this-week td:nth-child(2) {
+  width: 120px;
+}
+
+/* Header row styling */
 .this-week th {
-  background-color: #333; /* Darker background for headers */
-  color: #E0E0E0;
+  background-color: #333; /* Header background */
+  color: #E0E0E0; /* Header text */
 }
 
+/* Data row styling */
 .this-week td {
   background-color: #1A1A1A; /* Match section background */
-  color: #E0E0E0;
+  color: #E0E0E0; /* Text color */
 }
 
-
-/* "My Groups" section styling */
+/* Styling for "My Groups" section */
 .my-groups {
-  background-color: #1A1A1A; /* Dark gray background */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  color: #E0E0E0; 
-  width: 100%; /* Ensures it takes full width of left-column */
+  background-color: #1A1A1A; /* Background color */
+  padding: 20px; /* Space inside */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow */
+  color: #E0E0E0; /* Text color */
+  width: 100%; /* Full width of column */
 }
 
 .my-groups h2 {
-  color: white;
+  color: white; /* Heading color */
 }
 
-/* Right column for "New Entry" */
+/* Right column for "New Entry" form */
 .new-entry {
-  width: 45%; /* Occupies the right side */
-  background-color: #1F1F1F; /* Dark gray background */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-  color: #E0E0E0; 
+  width: 45%; /* Occupies right column */
+  background-color: #1F1F1F; /* Background */
+  padding: 20px; /* Space inside */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow */
+  color: #E0E0E0; /* Text color */
 }
 
 .new-entry h2 {
-  margin-top: 0;
-  color: white; /* Purple for section title */
+  margin-top: 0; /* Remove top margin */
+  color: white; /* Heading color */
 }
 
+/* Form container for input fields */
 #entry-form {
-  display: flex;
+  display: flex; /* Arrange vertically */
   flex-direction: column;
 }
 
+/* Label styling */
 #entry-form label {
-  margin-top: 10px;
-  color: #E0E0E0; 
+  margin-top: 10px; /* Space above */
+  color: #E0E0E0; /* Text color */
 }
 
+/* Input and textarea fields */
 #entry-form input,
 #entry-form textarea {
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #333; /* Darker borders */
-  border-radius: 4px;
-  background-color: #333; /* Dark input background */
-  color: #E0E0E0; /* Light gray text inside inputs */
+  padding: 10px; /* Space inside */
+  margin-top: 5px; /* Space above */
+  border: 1px solid #333; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #333; /* Input background */
+  color: #E0E0E0; /* Text color */
 }
 
+/* Placeholder styling */
 #entry-form input::placeholder,
 #entry-form textarea::placeholder {
-  color: #777; /* Placeholder text in gray */
+  color: #777; /* Placeholder color */
 }
 
+/* Button styling */
 #entry-form button {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #6200EA; /* Purple background for button */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  margin-top: 15px; /* Space above */
+  padding: 10px; /* Space inside */
+  background-color: #6200EA; /* Button background */
+  color: white; /* Text color */
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
 }
 
 #entry-form button:hover {
-  background-color: #4104ff; /* Darker purple on hover */
+  background-color: #4104ff; 
 }
 
 /* Success message styling */
 #form-success {
   display: none;
-  color: #03DAC6; /* Light green for success message */
+  color: #03DAC6; 
 }
