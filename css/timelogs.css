@@ -8,6 +8,8 @@ body, html {
   padding: 0;
   font-family: Arial, sans-serif;
   height: 100%; /* Ensure the body and HTML fill the viewport */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+
 }
 
 /* Header */
@@ -34,7 +36,6 @@ header.timelogs-header {
   padding: 15px;
   height: 100%;
   border-radius: 2px;
-  box-shadow: 2px;
 }
 
 .sidebar-timelogs ul {
@@ -69,29 +70,32 @@ header.timelogs-header {
   display: flex;
   flex-direction: column;
   gap: 20px; 
-  padding: 20px;
+  padding: 20px; /* Padding for all sides */
   background-color: #000000;
   color: #E0E0E0;
-  width: calc(100% - 220px); 
+  width: calc(100% - 200px); /* Sidebar width adjustment */
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow-y: auto; /* Allow scrolling for overflow content */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
 }
 
 /* Time Logs table styling */
 .timelogs-table-section {
   background-color: #1A1A1A; /* Dark gray background */
-  padding: 20px;
+  padding: 20px; /* Padding inside the section */
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
   color: #E0E0E0; /* Light text */
-  width: 100%; /* Ensures it takes full width of left-column */
+  width: 100%; /* Ensures it takes full width of the container */
+  box-sizing: border-box; 
 }
 
 .timelogs-table-section h2 {
   color: white;
   border-bottom: 1px solid #333; /* Bottom border for title */
   padding-bottom: 10px;
+  box-sizing: border-box; 
+
 }
 
 /* Table styling within "Time Logs" */
@@ -99,6 +103,7 @@ header.timelogs-header {
   width: 100%;
   border-collapse: collapse; /* Collapse borders to make a single line */
   margin-top: 15px;
+  table-layout: fixed; /* Ensures proper column widths and wrapping */
 }
 
 .timelogs-table th,
@@ -106,15 +111,18 @@ header.timelogs-header {
   border: 1px solid #333; /* Border around each cell */
   padding: 10px;
   text-align: left;
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
 }
 
-/* Reduce width of "Date" column */
+/* Width of "Date" column */
 .timelogs-table th:nth-child(1),
 .timelogs-table td:nth-child(1) {
   width: 35%; /* Adjust to reduce width of the first column */
 }
 
-/* Reduce width of "Time Spent" column */
+/* Width of "Time Spent" column */
 .timelogs-table th:nth-child(2),
 .timelogs-table td:nth-child(2) {
   width: 15%; /* Adjust to reduce width of the second column */
