@@ -1,4 +1,5 @@
-
+// Written by Varsha Mallepalli 
+// Written by Erika Mii 
 
 export function createHomepage() {
   // Create the main div for the homepage content
