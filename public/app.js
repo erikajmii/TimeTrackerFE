@@ -7,6 +7,8 @@ import { createPasswordPopup } from '../pages/passwordSet.js'; // Import the pas
 import { createHomepage } from '../pages/homepage.js'; // Import the homepage
 import { createTimeLogsPage } from '../pages/timelogs.js'; // Import the time logs page
 import { createPeerReviewPage } from '../pages/peerreview.js'; // Import the peer review page
+import { createProfilePage } from '../pages/profile.js'; // Import the profile page
+
 
 // Function to load CSS dynamically
 function loadCSS(filename) {
@@ -150,6 +152,11 @@ function renderPage() {
       appDiv.appendChild(createPeerReviewPage());
       console.log('Peer Review page loaded');
       break;
+    case 'profile': // Add the profile case
+      loadCSS('/css/profile.css'); // Load the profile CSS
+      appDiv.appendChild(createProfilePage()); // Render the profile page
+      console.log('Profile page loaded');
+      break
     case 'home':
     default:
       loadCSS('/css/homepage.css');
