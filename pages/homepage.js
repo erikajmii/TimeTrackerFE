@@ -1,5 +1,5 @@
-// Written by Varsha Mallepalli 
-// Written by Erika Mii 
+// Written by Varsha Mallepalli
+// Written by Erika Mii
 
 export function createHomepage() {
   // Create the main div for the homepage content
@@ -22,12 +22,35 @@ export function createHomepage() {
   sidebar.classList.add('sidebar');
   sidebar.innerHTML = `
     <ul>
-      <li><a href="#home" class="nav-item">Home</a></li>
-      <li><a href="#timelogs" class="nav-item">Timelogs</a></li>
-      <li><a href="#peerreview" class="nav-item">Peer Review</a></li>
-      <li><a href="#profile" class="nav-item">Profile</a></li>
+      <li><a href="#home" class="nav-item" id="home-link">Home</a></li>
+      <li><a href="#timelogs" class="nav-item" id="timelogs-link">Timelogs</a></li>
+      <li><a href="#peerreview" class="nav-item" id="peerreview-link">Peer Review</a></li>
+      <li><a href="#profile" class="nav-item" id="profile-link">Profile</a></li>
     </ul>
   `;
+
+  // Function to update the active navigation link
+  function updateActiveNav() {
+    // Remove active class from all navigation items
+    document.querySelectorAll('.sidebar .nav-item').forEach(link => {
+      link.classList.remove('active');
+    });
+
+    // Get the current hash or default to #home
+    const currentHash = location.hash || '#home';
+
+    // Add active class to the current navigation link
+    const activeLink = document.querySelector(`.sidebar .nav-item[href="${currentHash}"]`);
+    if (activeLink) {
+      activeLink.classList.add('active');
+    }
+  }
+
+  // Add an event listener for hash changes to update the active navigation link
+  window.addEventListener('hashchange', updateActiveNav);
+
+  // Run the function on page load to set the correct active link
+  updateActiveNav();
 
   // Create a container for the main content sections
   const contentContainer = document.createElement('div');
@@ -52,7 +75,6 @@ export function createHomepage() {
       </tbody>
     </table>
   `;
-
 
   // Create the "New Entry" form section
   const newEntrySection = document.createElement('section');
@@ -90,104 +112,81 @@ export function createHomepage() {
 
   // Function to convert HH:MM to minutes
   function convertToMinutes(time) {
-    console.log("time: ");
-    console.log(time);
     const [hours, minutes] = time.split(':').map(Number);
-    return (hours * 60) + minutes;
+    return hours * 60 + minutes;
   }
 
   function convertMinutesToHHMM(minutes) {
-    const hours = Math.floor(minutes / 60);  // Calculate hours
-    const remainingMinutes = minutes % 60;  // Calculate remaining minutes
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
     return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
   }
 
   // Set today's date as min and max for the date input field
-  const today = new Date().toISOString().split('T')[0]; // Format the current date as YYYY-MM-DD
+  const today = new Date().toISOString().split('T')[0];
+  const form = newEntrySection.querySelector('#entry-form');
+  const dateInput = newEntrySection.querySelector('#entry-date');
+  dateInput.min = today;
+  dateInput.max = today;
 
- // Add event listener for form validation on submission
- const form = newEntrySection.querySelector('#entry-form');
+  const entryTimeInput = newEntrySection.querySelector('#entry-time');
+  const accountDescription = newEntrySection.querySelector('#account-description');
+  const descriptionWarning = newEntrySection.querySelector('#description-warning');
 
- //inputs from entry form
- const dateInput = newEntrySection.querySelector('#entry-date');
- dateInput.min = today; // Set the minimum date to today
- dateInput.max = today; // Set the maximum date to today, limiting input to today's date only
- const entryTimeInput = newEntrySection.querySelector('#entry-time');
- const accountDescription = newEntrySection.querySelector('#account-description');
- const descriptionWarning = newEntrySection.querySelector('#description-warning');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
- //on pressing sumbit
- form.addEventListener('submit', async (event) => {
-  event.preventDefault();
+    if (accountDescription.value.length < 30) {
+      descriptionWarning.style.display = 'block';
+      return;
+    } else {
+      descriptionWarning.style.display = 'none';
+    }
 
-  // make sure the user is entering over 30 characters for the description
-  if (accountDescription.value.length < 30) {
-    descriptionWarning.style.display = 'block';
-    return;
-  } else {
-    descriptionWarning.style.display = 'none';
-  }
+    const entryDate = dateInput.value;
+    const entryTime = convertToMinutes(entryTimeInput.value);
+    const description = accountDescription.value;
 
-  //retrieve inputs 
-  const entryDate = dateInput.value;
-  const entryTime = convertToMinutes(entryTimeInput.value); //this will convert HH:MM to minutes 
-  console.log("This is the entry time that was sent to backend:");
-  console.log(entryTime);
-  const description = accountDescription.value;
+    try {
+      const response = await fetch('http://localhost:5264/api/timelogs/entry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        credentials: 'include',
+        body: new URLSearchParams({
+          date: entryDate,
+          Duration: entryTime,
+          description,
+        }),
+      });
 
-  // checking to see if the form data is correct
-  console.log('Form Data:', {
-    entryDate,
-    entryTime, 
-    description,
+      if (response.ok) {
+        descriptionWarning.style.display = 'none';
+        form.reset();
+        alert('Entry submitted successfully!');
+        await loadCurrentTimeLog();
+      } else {
+        console.error('Failed to submit entry:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting entry:', error);
+    }
   });
 
-  // Post to the backend
-  try {
-    const response = await fetch('http://localhost:5264/api/timelogs/entry', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      credentials: 'include',
-      body: new URLSearchParams({
-        date: entryDate, 
-        Duration: entryTime, 
-        description  
-      })
-    });
-
-    if (response.ok) {
-      descriptionWarning.style.display = 'none';
-      form.reset();
-      alert('Entry submitted successfully!');
-      await loadCurrentTimeLog();
-    } else {
-      console.error('Failed to submit entry:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error submitting entry:', error);
-  }
-});
-
-  // Fetch and display the current week's time log entries
   async function loadCurrentTimeLog() {
     try {
       const response = await fetch('http://localhost:5264/api/timelogs/current', {
         method: 'GET',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
 
       if (response.ok) {
         const timeLog = await response.json();
-        console.log('Time Log Entries:', timeLog); // Verify structure here
-
-        // Clear out "This Week" section first to avoid duplicate entries
         const tableBody = document.getElementById('this-week-entries');
-        tableBody.innerHTML = ''; // Clear existing entries
+        tableBody.innerHTML = '';
 
-        // Iterate through entries and call addToThisWeek with correct values
         timeLog.timeLogEntries.forEach(entry => {
           addToThisWeek(entry.duration, entry.description, entry.id);
         });
@@ -199,7 +198,6 @@ export function createHomepage() {
     }
   }
 
-  // Utility function to calculate the current week range in MM/DD - MM/DD format
   function getCurrentWeekRange() {
     const today = new Date();
     const day = today.getDay();
@@ -212,29 +210,23 @@ export function createHomepage() {
     return `${lastMonday.toLocaleDateString(undefined, options)} - ${nextSunday.toLocaleDateString(undefined, options)}`;
   }
 
-// Add a time entry to the "This Week" section
-function addToThisWeek(duration, description, entryId) {
-  const tableBody = document.getElementById('this-week-entries');
-  
-  const entryDiv = document.createElement('tr');
-  entryDiv.classList.add('entry');
-  entryDiv.dataset.id = entryId;
-  const today = new Date();
-  const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear().toString().slice(-2)}`;
+  function addToThisWeek(duration, description, entryId) {
+    const tableBody = document.getElementById('this-week-entries');
+    const entryDiv = document.createElement('tr');
+    entryDiv.classList.add('entry');
+    entryDiv.dataset.id = entryId;
+    const today = new Date();
+    const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear().toString().slice(-2)}`;
 
-  entryDiv.innerHTML = `
-    <td>${formattedDate}</td>
-    <td>${convertMinutesToHHMM(duration)}</td>
-    <td>${description}</td>
-  `;
-    // Append the entry row to the table body
+    entryDiv.innerHTML = `
+      <td>${formattedDate}</td>
+      <td>${convertMinutesToHHMM(duration)}</td>
+      <td>${description}</td>
+    `;
+
     tableBody.appendChild(entryDiv);
-}
+  }
 
-  // Load the time log entries when the page loads
   loadCurrentTimeLog();
-
-  return homepageDiv; // Return the completed homepage element
+  return homepageDiv;
 }
-
-
