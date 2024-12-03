@@ -1,0 +1,142 @@
+/* Written by Varsha Mallepalli */
+
+body, html {
+    color: white;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Header Section */
+header.timelogs-header {
+    background-color: #6200EA;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+/* Main Layout */
+.container-profile {
+    display: flex;
+    height: calc(100vh - 42px);
+}
+
+/* Sidebar Navigation */
+.sidebar-profile {
+    background-color: rgb(25, 24, 24);
+    width: 200px;
+    padding: 15px;
+    height: 100%;
+    border-radius: 2px;
+}
+
+.sidebar-profile ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-profile ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar-profile ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+}
+
+.sidebar-profile ul li a.active-tab {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+.sidebar-profile ul li a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+/* Content Area */
+.content-container-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    background-color: #000000;
+    color: #E0E0E0;
+    width: calc(100% - 230px);
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+/* Profile Card */
+.profile-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #1A1A1A;
+    padding: 20px;
+    border-radius: 8px;
+    color: #E0E0E0;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Reset Password Form */
+.reset-form {
+    background-color: #1A1A1A;
+    padding: 20px;
+    border-radius: 8px;
+    color: #E0E0E0;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.reset-form h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.reset-form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #E0E0E0;
+}
+
+.reset-form label[for="confirm-password"] {
+    margin-top: 5px;
+}
+
+.reset-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #333;
+    color: #E0E0E0;
+}
+
+.reset-form button {
+    background-color: #6200EA;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 7px;
+    font-size: 17px;
+}
+
+.reset-form button:hover {
+    background-color: #4104ff;
+}
