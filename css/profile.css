@@ -1,4 +1,5 @@
 /* Written by Varsha Mallepalli */
+/* Written by Erika Mii */
 
 body, html {
     color: white;
@@ -6,12 +7,12 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100%;
-    overflow: hidden;
-}
-
-/* Header Section */
-header.timelogs-header {
+    height: 100%; /* Ensure the body and HTML fill the viewport */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  /* Header */
+  header.profile-header {
     background-color: #6200EA;
     color: white;
     padding: 5px;
@@ -19,114 +20,110 @@ header.timelogs-header {
     width: 100%;
     position: relative;
     z-index: 10;
-}
-
-/* Main Layout */
-.container-profile {
+  }
+  
+  /* Container for sidebar and main content */
+  .container-profile {
     display: flex;
-    height: calc(100vh - 42px);
-}
-
-/* Sidebar Navigation */
-.sidebar-profile {
+    height: calc(100vh - 42px); /* Subtract header height */
+  }
+  
+  /* Sidebar Navigation */
+  .sidebar-profile {
     background-color: rgb(25, 24, 24);
     width: 200px;
     padding: 15px;
     height: 100%;
     border-radius: 2px;
-}
-
-.sidebar-profile ul {
+  }
+  
+  .sidebar-profile ul {
     list-style-type: none;
     padding: 0;
-}
-
-.sidebar-profile ul li {
+  }
+  
+  .sidebar-profile ul li {
     margin-bottom: 20px;
-}
-
-.sidebar-profile ul li a {
+  }
+  
+  .sidebar-profile ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
     display: block;
     padding: 10px;
-}
-
-.sidebar-profile ul li a.active-tab {
-    background-color: #575757;
+  }
+  
+  .sidebar-profile ul li a.active-tab {
+    background-color: #575757; /* Gray background for active link */
     border-radius: 4px;
-}
-
-.sidebar-profile ul li a:hover {
-    background-color: #575757;
+  }
+  
+  .sidebar-profile ul li a:hover {
+    background-color: #575757; /* Hover matches active link */
     border-radius: 4px;
-}
-
-/* Content Area */
-.content-container-profile {
+  }
+  
+  /* Content container for main sections */
+  .content-container-profile {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 15px;
+    padding: 20px; /* Padding for all sides */
     background-color: #000000;
     color: #E0E0E0;
-    width: calc(100% - 230px);
+    width: calc(100% - 200px); /* Sidebar width adjustment */
     border-radius: 8px;
-    box-sizing: border-box;
-    margin: 0 auto;
-}
-
-/* Profile Card */
-.profile-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: #1A1A1A;
+    overflow-y: auto; /* Allow scrolling for overflow content */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+  }
+  
+  /* Profile Card (Name and Group Section) */
+  .profile-card {
+    background-color: #1A1A1A; /* Dark gray background */
+    padding: 20px; /* Add padding inside */
+    border-radius: 8px; /* Rounded corners */
+    color: #E0E0E0; /* Light text */
+    width: 100%; /* Full width of the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    box-sizing: border-box; /* Include padding in width */
+    text-align: left; /* Align text to the left */
+  }
+  
+  /* Reset Password Form */
+  .reset-form {
+    background-color: #1A1A1A; /* Match profile card background */
     padding: 20px;
     border-radius: 8px;
     color: #E0E0E0;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Reset Password Form */
-.reset-form {
-    background-color: #1A1A1A;
-    padding: 20px;
-    border-radius: 8px;
-    color: #E0E0E0;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.reset-form h3 {
-    margin-top: 0;
+    width: 100%; /* Full width within container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    box-sizing: border-box; /* Include padding in width */
+  }
+  
+  .reset-form h3 {
     color: white;
-}
-
-.reset-form label {
+  }
+  
+  .reset-form label {
     display: block;
     margin-top: 10px;
     margin-bottom: 5px;
     color: #E0E0E0;
-}
-
-.reset-form label[for="confirm-password"] {
-    margin-top: 5px;
-}
-
-.reset-form input {
-    width: 100%;
+  }
+  
+  .reset-form input {
+    width: 100%; /* Full width input fields */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #333;
     border-radius: 4px;
     background-color: #333;
     color: #E0E0E0;
-}
-
-.reset-form button {
+  }
+  
+  .reset-form button {
     background-color: #6200EA;
     color: white;
     border: none;
@@ -135,8 +132,9 @@ header.timelogs-header {
     cursor: pointer;
     margin-top: 7px;
     font-size: 17px;
-}
-
-.reset-form button:hover {
+  }
+  
+  .reset-form button:hover {
     background-color: #4104ff;
-}
+  }
+  
