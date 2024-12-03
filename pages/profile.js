@@ -17,7 +17,7 @@ export function createProfilePage() {
     sidebar.innerHTML = `
       <ul>
         <li><a href="#home" class="nav-item">Home</a></li>
-        <li><a href="#timelogs" class="nav-item">Time Logs</a></li>
+        <li><a href="#timelogs" class="nav-item">Timelogs</a></li>
         <li><a href="#peerreview" class="nav-item">Peer Review</a></li>
         <li><a href="#profile" class="nav-item active-tab">Profile</a></li>
       </ul>
@@ -33,7 +33,7 @@ export function createProfilePage() {
     profileCard.innerHTML = `
       <div class="profile-details">
         <h2 id="name">Erika Mii</h2>
-        <p id="group">Group 78</p>
+        <h3 id="group">Group 78</h3>
       </div>
     `;
   
