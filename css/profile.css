@@ -7,8 +7,8 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100%; /* Ensure the body and HTML fill the viewport */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    height: 100%; 
+    overflow-x: hidden; 
   }
   
   /* Header */
@@ -25,7 +25,7 @@ body, html {
   /* Container for sidebar and main content */
   .container-profile {
     display: flex;
-    height: calc(100vh - 42px); /* Subtract header height */
+    height: calc(100vh - 42px);
   }
   
   /* Sidebar Navigation */
@@ -55,12 +55,12 @@ body, html {
   }
   
   .sidebar-profile ul li a.active-tab {
-    background-color: #575757; /* Gray background for active link */
+    background-color: #575757; 
     border-radius: 4px;
   }
   
   .sidebar-profile ul li a:hover {
-    background-color: #575757; /* Hover matches active link */
+    background-color: #575757; 
     border-radius: 4px;
   }
   
@@ -69,37 +69,36 @@ body, html {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px; /* Padding for all sides */
+    padding: 20px; 
     background-color: #000000;
     color: #E0E0E0;
-    width: calc(100% - 200px); /* Sidebar width adjustment */
+    width: calc(100% - 200px); 
     border-radius: 8px;
-    overflow-y: auto; /* Allow scrolling for overflow content */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    box-sizing: border-box; /* Ensure padding is included in width calculation */
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    box-sizing: border-box; 
   }
   
-  /* Profile Card (Name and Group Section) */
+  /* Profile Card */
   .profile-card {
-    background-color: #1A1A1A; /* Dark gray background */
-    padding: 20px; /* Add padding inside */
-    border-radius: 8px; /* Rounded corners */
-    color: #E0E0E0; /* Light text */
-    width: 100%; /* Full width of the container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
-    box-sizing: border-box; /* Include padding in width */
-    text-align: left; /* Align text to the left */
+    background-color: #1A1A1A; 
+    padding: 20px; 
+    border-radius: 8px;
+    color: #E0E0E0; 
+    width: 100%; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    box-sizing: border-box; 
+    text-align: left; 
   }
   
   /* Reset Password Form */
   .reset-form {
-    background-color: #1A1A1A; /* Match profile card background */
+    background-color: #1A1A1A; 
     padding: 20px;
     border-radius: 8px;
     color: #E0E0E0;
-    width: 100%; /* Full width within container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
-    box-sizing: border-box; /* Include padding in width */
+    width: 100%; 
+    box-sizing: border-box; 
   }
   
   .reset-form h3 {
@@ -113,15 +112,43 @@ body, html {
     color: #E0E0E0;
   }
   
+  /* Input Container */
+  .input-container {
+    position: relative; 
+    margin-bottom: 20px;
+  }
+
+  /* Input Styling */
   .reset-form input {
-    width: 100%; /* Full width input fields */
+    width: 300px;
     padding: 10px;
+    padding-right: 40px; 
     margin-bottom: 15px;
     border: 1px solid #333;
     border-radius: 4px;
     background-color: #333;
     color: #E0E0E0;
+    box-sizing: border-box; 
   }
+
+  /* Eye Icon Styling */
+  .toggle-password {
+    position: absolute;
+    top: 58%; 
+    left: 270px; 
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1; 
+    background-color: transparent;
+    border: none;
+  }
+
+  .toggle-password svg {
+    fill: #5f6368; 
+    width: 20px; 
+    height: 20px;
+  }
+
   
   .reset-form button {
     background-color: #6200EA;
@@ -132,9 +159,15 @@ body, html {
     cursor: pointer;
     margin-top: 7px;
     font-size: 17px;
-  }
+    display: block; 
+    width: 300px; 
+}
   
   .reset-form button:hover {
     background-color: #4104ff;
   }
+  
+  
+
+
   
