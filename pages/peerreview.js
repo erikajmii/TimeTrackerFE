@@ -1,6 +1,3 @@
-// Written by Varsha Mallepalli 
-// Written by Erika Mii 
-
 export function createPeerReviewPage() {
   const peerReviewDiv = document.createElement('div');
 
@@ -46,15 +43,21 @@ export function createPeerReviewPage() {
   dropdownContainer.classList.add('dropdown-container-peer-review');
 
   const dropdownLabel = document.createElement('label');
-  dropdownLabel.textContent = 'Select Person to Review:';
+  dropdownLabel.textContent = 'Select a Person to Review:';
   dropdownLabel.setAttribute('for', 'review-person');
 
   const dropdown = document.createElement('select');
   dropdown.setAttribute('id', 'review-person');
   dropdown.setAttribute('name', 'review-person');
 
-  // Placeholder names
-  const placeholderNames = ['John Doe', 'Jane Smith', 'Alex Johnson', 'Emily Davis'];
+  // Team member names
+  const placeholderNames = [
+    'Aayush Perecharla',
+    'Grace Yang',
+    'Eric Wang',
+    'Varsha Mallepalli',
+    'Chris Nguyen',
+  ];
 
   placeholderNames.forEach((name) => {
     const option = document.createElement('option');
@@ -71,13 +74,15 @@ export function createPeerReviewPage() {
   const questionsContainer = document.createElement('div');
   questionsContainer.classList.add('questions-container-peer-review');
 
-  const placeholderQuestions = [
-    'What did this team member do well?',
-    'What could this team member improve on?',
-    'Any additional feedback?',
+  const providedQuestions = [
+    'How effective was the team member in contributing to group discussions?',
+    'How would you rate the clarity and consistency of the team member’s communication?',
+    'How proactive was the team member in identifying and solving problems?',
+    'Who was the teammate? Explain your choice.',
+    'This is a test question? Explain why.',
   ];
 
-  placeholderQuestions.forEach((question, index) => {
+  providedQuestions.forEach((question, index) => {
     const questionDiv = document.createElement('div');
     questionDiv.classList.add('question-peer-review');
 
@@ -88,6 +93,16 @@ export function createPeerReviewPage() {
     const answerTextarea = document.createElement('textarea');
     answerTextarea.placeholder = 'Write your response here...';
     questionDiv.appendChild(answerTextarea);
+
+    // Rating dropdown
+    const ratingDropdown = document.createElement('select');
+    for (let i = 1; i <= 5; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = i;
+      ratingDropdown.appendChild(option);
+    }
+    questionDiv.appendChild(ratingDropdown);
 
     questionsContainer.appendChild(questionDiv);
   });
