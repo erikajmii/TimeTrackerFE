@@ -21,10 +21,10 @@ header.peer-review-header {
 .sidebar-peer-review {
     background-color: rgb(25, 24, 24);
     width: 200px; /* Sidebar width */
-    padding: 15px; 
+    padding: 15px;
     height: 100%;
     border-radius: 2px;
-    box-shadow: 2px; 
+    box-shadow: 2px;
 }
 
 .sidebar-peer-review ul {
@@ -69,7 +69,6 @@ header.peer-review-header {
 }
 
 /* Questions container */
-
 .questions-container-peer-review {
     display: flex;
     flex-direction: column;
@@ -92,15 +91,38 @@ header.peer-review-header {
     border-radius: 4px;
 }
 
+/* Rating dropdown */
+.question-peer-review select {
+    width: 100px;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #333;
+    color: #E0E0E0;
+    border: 1px solid #575757;
+    border-radius: 4px;
+}
+
+/* Dropdown for selecting person */
+.dropdown-container-peer-review select {
+    width: 300px;
+    padding: 10px;
+    background-color: #333;
+    color: #E0E0E0;
+    border: 1px solid #575757;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
 /* Submit button */
 .button-peer-review {
     background-color: #6200EA;
     color: white;
     border: none;
     border-radius: 4px;
-    padding: 10px 20px;
+    padding: 15px 20px;
     cursor: pointer;
     margin-top: 20px;
+    font-size: 17px;
 }
 
 .button-peer-review:hover {
