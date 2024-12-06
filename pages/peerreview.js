@@ -1,5 +1,6 @@
-// Written by Varsha Mallepalli
-// Written by Erika Mii 
+// Written by Varsha Mallepalli: Worked on the UI components, including designing and implementing the structure and layout.
+// Written by Erika Mii: Worked on integrating the frontend with the backend, including calling the APIs and handling backend connections.
+
 export function createPeerReviewPage() {
   const baseURL = 'http://localhost:5264/api';
 
@@ -102,7 +103,7 @@ export function createPeerReviewPage() {
   
           return {
             PeerReviewQuestionId: questionId,
-            numericalFeedback: numericalFeedback,
+            NumericalFeedback: numericalFeedback,
             WrittenFeedback: writtenFeedback,
           };
         }).filter(answer => answer !== null); // Remove any null answers
@@ -172,11 +173,8 @@ export function createPeerReviewPage() {
       }
 
       const user = await userResponse.json();
-      const loggedInUserId = user.netID; // Adjust field name to match API response
+      const loggedInUserId = user.netID; 
       const userGroupId = user.group; // Assuming 'Group' contains the group ID
-
-      console.log('User Details:', user); // Add this line
-      console.log('Logged-in User Group ID:', userGroupId); // Add this line
 
       // Fetch the members of the logged-in user's group
       const groupResponse = await fetch(`${baseURL}/user/group/${userGroupId}`, {
@@ -190,14 +188,13 @@ export function createPeerReviewPage() {
       }
 
       const groupMembers = await groupResponse.json();
-      console.log('Group Members:', groupMembers);
+    
 
       // Populate dropdown with group members, excluding the logged-in user
       groupMembers
         .forEach((member) => {
           const option = document.createElement('option');
           option.value = member.netID;
-          console.log('Group Member Net id: ', option.value);
           option.textContent = `${member.firstName} ${member.lastName}`; // Adjust field names as necessary
           dropdown.appendChild(option);
         });

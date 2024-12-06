@@ -1,5 +1,5 @@
-// Written by Varsha Mallepalli 
-// Written by Erika Mii 
+// Written by Varsha Mallepalli: Worked on the UI components, including designing and implementing the structure and layout.
+// Written by Erika Mii: Worked on integrating the frontend with the backend, including calling the APIs and handling backend connections.
 
 export function createTimeLogsPage() {
   console.log("Initializing Time Logs page...");

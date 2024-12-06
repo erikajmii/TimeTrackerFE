@@ -1,5 +1,5 @@
-// Written by Varsha Mallepalli
-// Written by Erika Mii
+// Written by Varsha Mallepalli: Worked on the UI components, including designing and implementing the structure and layout.
+// Written by Erika Mii: Worked on integrating the frontend with the backend, including calling the APIs and handling backend connections, as well as helped with the UI components.
 export function createHomepage() {
   // Create the main div for the homepage content
   const homepageDiv = document.createElement('div');
@@ -116,12 +116,10 @@ export function createHomepage() {
         return;
       }
       const timeLog = await response.json();
-      console.log('Loaded Time Logs:', timeLog); // Debugging
       const tableBody = document.getElementById('this-week-entries');
       if (!tableBody) return;
       tableBody.innerHTML = '';
       timeLog?.timeLogEntries?.forEach(entry => {
-        console.log('Entry:', entry); // Debugging
         addToThisWeek(entry.duration, entry.description, entry.id, entry.date || entry.createdAt);
       });
     } catch (error) {
@@ -235,7 +233,7 @@ export function createHomepage() {
       console.error('Error submitting entry:', error);
     }
   });
-  
+
   function convertToMinutes(time) {
     const [hours, minutes] = time.split(':').map(Number);
     return hours * 60 + minutes;
