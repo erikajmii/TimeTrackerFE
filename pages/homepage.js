@@ -1,6 +1,5 @@
 // Written by Varsha Mallepalli
 // Written by Erika Mii
-
 export function createHomepage() {
   // Create the main div for the homepage content
   const homepageDiv = document.createElement('div');
@@ -31,25 +30,17 @@ export function createHomepage() {
 
   // Function to update the active navigation link
   function updateActiveNav() {
-    // Remove active class from all navigation items
     document.querySelectorAll('.sidebar .nav-item').forEach(link => {
       link.classList.remove('active');
     });
-
-    // Get the current hash or default to #home
     const currentHash = location.hash || '#home';
-
-    // Add active class to the current navigation link
     const activeLink = document.querySelector(`.sidebar .nav-item[href="${currentHash}"]`);
     if (activeLink) {
       activeLink.classList.add('active');
     }
   }
 
-  // Add an event listener for hash changes to update the active navigation link
   window.addEventListener('hashchange', updateActiveNav);
-
-  // Run the function on page load to set the correct active link
   updateActiveNav();
 
   // Create a container for the main content sections
@@ -59,7 +50,6 @@ export function createHomepage() {
   // Create the "This Week" section
   const thisWeekSection = document.createElement('section');
   thisWeekSection.classList.add('this-week');
-
   thisWeekSection.innerHTML = `
     <h2>This Week</h2>
     <h3 class="current-week-range">${getCurrentWeekRange()}</h3>
@@ -69,6 +59,7 @@ export function createHomepage() {
           <th>Date</th>
           <th>Time Spent (hh:mm)</th>
           <th>What Was Accomplished</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody id="this-week-entries">
@@ -94,62 +85,130 @@ export function createHomepage() {
 
       <button type="submit">Submit Entry</button>
     </form>
-
     <p id="form-success" style="display:none;color:green;">Entry submitted successfully!</p>
   `;
 
-  // Append the individual sections to the content container
   contentContainer.appendChild(thisWeekSection);
   contentContainer.appendChild(newEntrySection);
-
-  // Add the sidebar and content container to the main container
   container.appendChild(sidebar);
   container.appendChild(contentContainer);
-
-  // Add the header and main container to the homepage div
   homepageDiv.appendChild(header);
   homepageDiv.appendChild(container);
 
-  // Function to convert HH:MM to minutes
-  function convertToMinutes(time) {
-    const [hours, minutes] = time.split(':').map(Number);
-    return hours * 60 + minutes;
-  }
-
-  function convertMinutesToHHMM(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
-  }
-
-  // Set today's date as min and max for the date input field
   const today = new Date().toISOString().split('T')[0];
   const form = newEntrySection.querySelector('#entry-form');
   const dateInput = newEntrySection.querySelector('#entry-date');
-  dateInput.min = today;
-  dateInput.max = today;
-
   const entryTimeInput = newEntrySection.querySelector('#entry-time');
   const accountDescription = newEntrySection.querySelector('#account-description');
   const descriptionWarning = newEntrySection.querySelector('#description-warning');
+  dateInput.min = today;
+  dateInput.max = today;
+
+  async function loadCurrentTimeLog() {
+    try {
+      const response = await fetch('http://localhost:5264/api/timelogs/current', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        console.error('Failed to load time log:', response.statusText);
+        return;
+      }
+      const timeLog = await response.json();
+      console.log('Loaded Time Logs:', timeLog); // Debugging
+      const tableBody = document.getElementById('this-week-entries');
+      if (!tableBody) return;
+      tableBody.innerHTML = '';
+      timeLog?.timeLogEntries?.forEach(entry => {
+        console.log('Entry:', entry); // Debugging
+        addToThisWeek(entry.duration, entry.description, entry.id, entry.date || entry.createdAt);
+      });
+    } catch (error) {
+      console.error('Error loading time log:', error);
+    }
+  }
+
+  function addToThisWeek(duration, description, entryId, entryDate) {
+    const tableBody = document.getElementById('this-week-entries');
+    const entryRow = document.createElement('tr');
+    entryRow.dataset.id = entryId;
+
+    // Safely format the date or use a fallback
+    const formattedDate = entryDate ? entryDate.slice(0, 10) : 'No Date Available';
+
+    // Convert duration from minutes to HH:MM format
+    const durationInHours = `${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')}`;
+
+    const isEditable = entryDate
+      ? (() => {
+          const entryTime = new Date(entryDate).getTime();
+          const threeDaysMs = 3 * 24 * 60 * 60 * 1000;
+          return new Date().getTime() - entryTime <= threeDaysMs;
+        })()
+      : false;
+
+    entryRow.innerHTML = `
+      <td>${formattedDate}</td>
+      <td>${durationInHours}</td>
+      <td>${description}</td>
+      <td>
+        ${
+          isEditable
+            ? `<button class="edit-button" data-id="${entryId}" data-duration="${duration}" data-description="${description}" data-date="${entryDate}">Edit</button>`
+            : 'Not Editable'
+        }
+      </td>
+    `;
+
+    tableBody.appendChild(entryRow);
+
+    if (isEditable) {
+      entryRow.querySelector('.edit-button').addEventListener('click', (e) => {
+        const button = e.target;
+        openEditForm(button.dataset.id, button.dataset.duration, button.dataset.description, button.dataset.date);
+      });
+    }
+  }
+
+  function openEditForm(entryId, duration, description, entryDate) {
+    dateInput.value = entryDate.split('T')[0];
+    entryTimeInput.value = convertMinutesToHHMM(duration);
+    accountDescription.value = description;
+
+    let hiddenInput = document.getElementById('entry-id');
+    if (!hiddenInput) {
+      hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.id = 'entry-id';
+      form.appendChild(hiddenInput);
+    }
+    hiddenInput.value = entryId;
+    alert('Edit the entry and resubmit.');
+  }
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
     if (accountDescription.value.length < 30) {
       descriptionWarning.style.display = 'block';
       return;
-    } else {
-      descriptionWarning.style.display = 'none';
     }
-
+    descriptionWarning.style.display = 'none';
     const entryDate = dateInput.value;
     const entryTime = convertToMinutes(entryTimeInput.value);
     const description = accountDescription.value;
-
+    const entryId = document.getElementById('entry-id')?.value;
+  
     try {
-      const response = await fetch('http://localhost:5264/api/timelogs/entry', {
-        method: 'POST',
+      // Corrected URLs for POST and PATCH requests
+      const url = entryId
+        ? `http://localhost:5264/api/timelogs/entry/${entryId}` // PATCH request
+        : `http://localhost:5264/api/timelogs/entry`; // POST request
+  
+      const method = entryId ? 'PATCH' : 'POST';
+  
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -160,42 +219,32 @@ export function createHomepage() {
           description,
         }),
       });
-
-      if (response.ok) {
-        descriptionWarning.style.display = 'none';
-        form.reset();
-        alert('Entry submitted successfully!');
-        await loadCurrentTimeLog();
-      } else {
-        console.error('Failed to submit entry:', response.statusText);
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error(`Failed to submit entry: ${response.status} ${response.statusText}`);
+        console.error('Error details:', errorMessage);
+        alert('Failed to submit entry. Please check the console for details.');
+        return;
       }
+  
+      form.reset();
+      alert(entryId ? 'Entry updated successfully!' : 'Entry submitted successfully!');
+      await loadCurrentTimeLog();
     } catch (error) {
       console.error('Error submitting entry:', error);
     }
   });
+  
+  function convertToMinutes(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
 
-  async function loadCurrentTimeLog() {
-    try {
-      const response = await fetch('http://localhost:5264/api/timelogs/current', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        const timeLog = await response.json();
-        const tableBody = document.getElementById('this-week-entries');
-        tableBody.innerHTML = '';
-
-        timeLog.timeLogEntries.forEach(entry => {
-          addToThisWeek(entry.duration, entry.description, entry.id);
-        });
-      } else {
-        console.error('Failed to load time log:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error loading time log:', error);
-    }
+  function convertMinutesToHHMM(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
   }
 
   function getCurrentWeekRange() {
@@ -210,23 +259,8 @@ export function createHomepage() {
     return `${lastMonday.toLocaleDateString(undefined, options)} - ${nextSunday.toLocaleDateString(undefined, options)}`;
   }
 
-  function addToThisWeek(duration, description, entryId) {
-    const tableBody = document.getElementById('this-week-entries');
-    const entryDiv = document.createElement('tr');
-    entryDiv.classList.add('entry');
-    entryDiv.dataset.id = entryId;
-    const today = new Date();
-    const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear().toString().slice(-2)}`;
-
-    entryDiv.innerHTML = `
-      <td>${formattedDate}</td>
-      <td>${convertMinutesToHHMM(duration)}</td>
-      <td>${description}</td>
-    `;
-
-    tableBody.appendChild(entryDiv);
-  }
-
+  // Initial load of current time logs
   loadCurrentTimeLog();
+
   return homepageDiv;
 }
