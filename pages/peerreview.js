@@ -48,7 +48,7 @@ export function createPeerReviewPage() {
   dropdownContainer.classList.add('dropdown-container-peer-review');
 
   const dropdownLabel = document.createElement('label');
-  dropdownLabel.textContent = 'Select Person to Review:';
+  dropdownLabel.textContent = 'Select a Person to Review:';
   dropdownLabel.setAttribute('for', 'review-person');
 
   const dropdown = document.createElement('select');
