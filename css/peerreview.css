@@ -72,7 +72,7 @@ header.peer-review-header {
 .questions-container-peer-review {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between questions */
+    gap: 20px; 
 }
 
 /* Question label */
