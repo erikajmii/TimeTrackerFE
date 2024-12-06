@@ -34,8 +34,8 @@ export function createProfilePage() {
   profileCard.classList.add('profile-card');
   profileCard.innerHTML = `
     <div class="profile-details">
-      <h2 id="name">Erika Mii</h2>
-      <h3 id="group">Group 78</h3>
+      <h2 id="name">...</h2>
+      <h3 id="group">Group</h3>
     </div>
   `;
 
