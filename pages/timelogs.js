@@ -106,7 +106,7 @@ export function createTimeLogsPage() {
       } else {
         // If no data or entries, show a message in the table
         const noEntriesRow = document.createElement('tr');
-        noEntriesRow.innerHTML = `<td colspan="3">No time logs available.</td>`; // Spanning 3 columns for the message
+        noEntriesRow.innerHTML = `<td colspan="3">No time logs available.</td>`; 
         tableBody.appendChild(noEntriesRow);
       }
     })
@@ -115,6 +115,6 @@ export function createTimeLogsPage() {
       console.error('Error fetching time logs:', error);
     });
 
-  // Return the main container for time logs (likely for further rendering in the UI)
+  // Return the main container for time logs 
   return timeLogsDiv;
 }
