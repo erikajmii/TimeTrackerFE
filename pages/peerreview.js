@@ -214,7 +214,6 @@ export function createPeerReviewPage() {
 
       // Dynamically create question elements
       questions.forEach((question, index) => {
-        console.log(`Question ID: ${question.peerReviewQuestionId}`);  // Log the question ID
         const questionDiv = document.createElement('div');
         questionDiv.classList.add('question-peer-review');
 
